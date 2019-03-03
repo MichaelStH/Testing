@@ -3,21 +3,29 @@ package com.riders.testing;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.crashlytics.android.answers.CustomEvent;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.trigger_button)
+    Button triggerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
 
         // TODO: Move this to where you establish a user session
         logUser();
@@ -37,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: Move this method and use your own event name to track your key metrics
-    public void onKeyMetric() {
+    public void onKeyMetric(View view) {
         // TODO: Use your own string attributes to track common values over time
         // TODO: Use your own number attributes to track median value over time
         Answers.getInstance().logCustom(new CustomEvent("Video Played")

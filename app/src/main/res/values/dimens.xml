@@ -7,6 +7,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
+    <dimen name="big_margin">24dp</dimen>
+
+    <dimen name="activity_section_title">20sp</dimen>
+
     <dimen name="admin_dashboard_nav_drawer_width">260dp</dimen>
 
     <dimen name="tab_max_width">264dp</dimen>
