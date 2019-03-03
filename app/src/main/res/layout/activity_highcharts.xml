@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="bottom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <com.highsoft.highcharts.core.HIChartView
+            android:id="@+id/hc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.highsoft.highcharts.core.HIChartView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/medium_margin"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/load_new_data_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/load_new_data"
+                android:textColor="#1826B0"
+                style="@android:style/Widget.Material.Button.Borderless"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#bfbfbf"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/medium_margin"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/exit_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/exit"
+                style="@android:style/Widget.Material.Button.Borderless"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

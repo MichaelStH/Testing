@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.riders.testing">
 
     <dist:module dist:instant="true" />
+
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <!--ACCESS_FINE_LOCATION permission need for google play services version.-->
+    <!-- For GPS based location, this one -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--For using only network based location use this one-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <permission android:name="com.riders.testing.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.riders.testing.permission.MAPS_RECEIVE"/>
+
+    <uses-permission android:name="com.google.android.providers.gsf.perssion.READ_GSERVICES"/>
 
     <application
         android:allowBackup="true"
@@ -11,14 +34,38 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".activities.MainActivity"
+            android:theme="@style/NoActionBarTheme"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".activities.HighChartsActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <activity
+            android:name=".activities.ServiceActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <activity android:name=".activities.FabricActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <!-- Fabric -->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="d1773a19c4de531258673ec04e551804409ed0e2" />
