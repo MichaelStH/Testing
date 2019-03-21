@@ -17,6 +17,7 @@ import com.riders.testing.adapters.ActivityListAdapter;
 import com.riders.testing.constants.Const;
 import com.riders.testing.interfaces.ActivityListClickListener;
 import com.riders.testing.model.ActivityItem;
+import com.riders.testing.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
     public void onAppItemCLickListener(View view, ActivityItem item, int position) {
         Log.d(TAG, "Clicked item : " + item + ", at position : " + position);
 
-        startActivity(new Intent(this, item.getActivity()));
+        if (item.getTitle().equals("WIP"))
+            Utils.showActionInToast(this, "Activity Work In Progress....\nComing soon");
+        else
+            startActivity(new Intent(this, item.getActivity()));
     }
 }
