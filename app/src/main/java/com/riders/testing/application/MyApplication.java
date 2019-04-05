@@ -10,8 +10,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
-import com.riders.testing.rest.client.ProjectPreviewRestClient;
+import com.riders.testing.broadcast.ConnectivityReceiver;
 import com.riders.testing.rest.client.SearchApiRestClient;
+import com.riders.testing.rest.client.YoutubeRestClient;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -27,7 +28,7 @@ public class MyApplication extends Application {
     private RequestQueue mRequestQueue;
 
 
-    private static ProjectPreviewRestClient mProjectPreviewRestClient;
+    private static YoutubeRestClient youtubeRestClient;
     private static SearchApiRestClient mSearchApiRestClient;
 
 
@@ -44,10 +45,10 @@ public class MyApplication extends Application {
         //Init fabric stuff
         Fabric.with(this, new Answers(), new Crashlytics());
 
+        mInstance = this;
         context = this;
 
-
-        mProjectPreviewRestClient = new ProjectPreviewRestClient();
+        youtubeRestClient = new YoutubeRestClient();
         mSearchApiRestClient = new SearchApiRestClient();
 
     }
@@ -80,10 +81,8 @@ public class MyApplication extends Application {
      *
      * @return
      */
-    public static ProjectPreviewRestClient getProjectPreviewApiRestClient() {
-
-        Log.i(TAG, "return : getProjectPreviewApiRestClient()");
-        return mProjectPreviewRestClient;
+    public YoutubeRestClient getYoutubeRestClient() {
+        return youtubeRestClient;
     }
 
     //Volley
@@ -112,6 +111,10 @@ public class MyApplication extends Application {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
+    }
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+        ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 
 }

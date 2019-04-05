@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!-- Splash Theme -->
+    <style name="SplashTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <style name="NoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+
+    //Tab Theme
+    <style name="TabTheme" parent="TabStyleTheme.Base"></style>
+
+    <style name="TabStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/tabColorPrimary</item>
+        <item name="colorPrimaryDark">@color/tabColorPrimaryDark</item>
+        <item name="colorAccent">@color/tabColorAccent</item>
+    </style>
+
+
+    //SwipeDown Theme
+    <style name="SwipeDownTheme" parent="SwipeDownStyleTheme.Base"></style>
+
+    <style name="SwipeDownStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/swipeDownColorPrimary</item>
+        <item name="colorPrimaryDark">@color/swipeDownColorPrimaryDark</item>
+        <item name="colorAccent">@color/swipeDownColorAccent</item>
+    </style>
+
+
+    //Location Theme
+    <style name="LocationTheme" parent="LocationStyleTheme.Base"></style>
+
+    <style name="LocationStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+
+        <item name="colorPrimary">@color/swipeDownColorPrimary</item>
+        <item name="colorPrimaryDark">@color/swipeDownColorPrimaryDark</item>
+        <item name="colorAccent">@color/swipeDownColorAccent</item>
+    </style>
+
+
+    //Youtube Theme
+    <style name="YoutubeTheme" parent="YoutubeStyleTheme.Base"></style>
+
+    <style name="YoutubeStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/swipeDownColorPrimary</item>
+        <item name="colorPrimaryDark">@color/swipeDownColorPrimaryDark</item>
+        <item name="colorAccent">@color/swipeDownColorAccent</item>
+
+        <!-- enable window content transitions -->
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+
+
+    //Palette Theme
+    <style name="PaletteTheme" parent="PaletteStyleTheme.Base"></style>
+
+    <style name="PaletteStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/tabColorPrimary</item>
+        <item name="colorPrimaryDark">@color/tabColorPrimaryDark</item>
+        <item name="colorAccent">@color/tabColorAccent</item>
+    </style>
+
+
+    //Filter ListView Theme
+    <style name="FilterListViewTheme" parent="FilterListViewStyleTheme.Base"></style>
+
+    <style name="FilterListViewStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/filterListViewColorPrimary</item>
+        <item name="colorPrimaryDark">@color/filterListViewColorPrimaryDark</item>
+        <item name="colorAccent">@color/filterListViewColorAccent</item>
+    </style>
+
+
+    //Multi-Pane Theme
+    <style name="MultiPaneTheme" parent="MultiPaneStyleTheme.Base"></style>
+
+    <style name="MultiPaneStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/multiPaneColorPrimary</item>
+        <item name="colorPrimaryDark">@color/multiPaneColorPrimaryDark</item>
+        <item name="colorAccent">@color/multiPaneColorAccent</item>
+    </style>
+
+
+    //Contacts with Database Theme
+    <style name="ContactsDatabaseTheme" parent="ContactsDatabaseStyleTheme.Base"></style>
+
+    <style name="ContactsDatabaseStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/contactsDatabaseColorPrimary</item>
+        <item name="colorPrimaryDark">@color/contactsDatabaseColorPrimaryDark</item>
+        <item name="colorAccent">@color/contactsDatabaseColorAccent</item>
+    </style>
+
+    //GridLayout + Toolbar Theme
+    <style name="GridLayoutTheme" parent="GridLayoutStyleTheme.Base"></style>
+
+    <style name="GridLayoutStyleTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/swipeDownColorPrimary</item>
+        <item name="colorPrimaryDark">@color/multiPaneColorPrimaryDark</item>
+        <item name="colorAccent">@color/tabColorAccent</item>
+    </style>
+
+    //Admin Dashboard Theme
+    <style name="AdminDashBoardTheme" parent="AdminDashBoardStyleTheme.Base"></style>
+
+    <style name="AdminDashBoardStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/adminDashboardColorPrimary</item>
+        <item name="colorPrimaryDark">@color/adminDashboardColorPrimaryDark</item>
+        <item name="colorAccent">@color/adminDashboardColorAccent</item>
+        <item name="colorControlHighlight">@color/adminDashboardColorPrimaryDark</item>
+        <item name="selectableItemBackground">@drawable/selectable_item_background</item>
+        <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
+    </style>
+
+
+    //Built-in WebView Theme
+    <style name="BuiltInWebViewTheme" parent="BuiltInWebViewStyleTheme.Base"></style>
+
+    <style name="BuiltInWebViewStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/builtInWebViewColorPrimary</item>
+        <item name="colorPrimaryDark">@color/builtInWebViewColorPrimaryDark</item>
+        <item name="colorAccent">@color/builtInWebViewColorAccent</item>
+    </style>
+
+    //Song Player Theme
+    <style name="SongPlayerTheme" parent="SongPlayerStyleTheme.Base"></style>
+
+    <style name="SongPlayerStyleTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/swipeDownColorPrimary</item>
+        <item name="colorPrimaryDark">@color/swipeDownColorPrimaryDark</item>
+        <item name="colorAccent">@color/swipeDownColorAccent</item>
+    </style>
+
+</resources>

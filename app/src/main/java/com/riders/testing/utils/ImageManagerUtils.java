@@ -28,12 +28,12 @@ public class ImageManagerUtils {
         BitmapDrawable drawableFromImageView = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmapFromImageView = drawableFromImageView.getBitmap();
         Bitmap blurred = blurRenderScript(context, bitmapFromImageView, radius);
-        //second parametre is radius
+        //second parameter is radius
         imageView.setImageBitmap(blurred);
 
     }
 
-    public static Bitmap blurRenderScript(Context context,Bitmap smallBitmap, int radius) {
+    private static Bitmap blurRenderScript(Context context,Bitmap smallBitmap, int radius) {
         try {
             smallBitmap = RGB565toARGB888(smallBitmap);
         } catch (Exception e) {

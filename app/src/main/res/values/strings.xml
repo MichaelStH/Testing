@@ -25,6 +25,26 @@
     <string name="activity_walking">walking</string>
     <string name="activity_unknown">Unknown</string>
 
+
+    <string name="pas_de_connexion">Not connected to the Internet :(</string>
+    <string name="verifiez_votre_connexion">Please check your cellular network or Wi-Fi network</string>
+
+    <string name="hint_content_title">Video\'s title</string>
+    <string name="hint_content_description">Video\'s description link</string>
+
+    <string name="lire">Play</string>
+    <string name="ajouter_aux_favoris">Add to favorite</string>
+    <string name="error_audio_error">audio error</string>
+    <string name="error_client">client error</string>
+    <string name="error_permission">error permission</string>
+    <string name="error_network">network error cannot connect</string>
+    <string name="error_timeout">timout error</string>
+    <string name="error_no_match">no match</string>
+    <string name="error_busy">busy</string>
+    <string name="error_server">servere side error</string>
+    <string name="error_understand">do\'t understand</string>
+    <string name="speech_recording">Recording...</string>
+
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 

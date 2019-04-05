@@ -7,6 +7,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="activity_margin">16dp</dimen>
+
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
     <dimen name="big_margin">24dp</dimen>
@@ -28,9 +30,14 @@
     <dimen name="bandeau_pictures_singer_name_textSize">24sp</dimen>
     <dimen name="bandeau_pictures_singer_biography_textSize">16sp</dimen>
 
-    <dimen name="project_preview_thumb_margin">16sp</dimen>
-    <dimen name="project_preview_thumb_width">147sp</dimen>
-    <dimen name="project_preview_thumb_height">82sp</dimen>
+
+    <dimen name="thumb_margin">16sp</dimen>
+    <dimen name="thumb_width">147sp</dimen>
+    <dimen name="thumb_height">82sp</dimen>
+
+
+    <dimen name="thumb_width_content">197sp</dimen>
+    <dimen name="thumb_height_content">132sp</dimen>
 
 
     <dimen name="gridlayout_big_thumb_width">410dp</dimen>

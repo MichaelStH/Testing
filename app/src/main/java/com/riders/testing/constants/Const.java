@@ -59,6 +59,18 @@ public class Const {
         activityItems.add(new ActivityItem("Location Google API", "Find user location and display coordinates...",
                 R.drawable.ic_location_on_black_24dp, LocationGoogleAPIActivity.class));
 
+        activityItems.add(new ActivityItem("Contact List", "Contact List...",
+                R.drawable.ic_contacts_black_48dp, ContactListActivity.class));
+
+        activityItems.add(new ActivityItem("Youtube", "Youtube look like...",
+                R.drawable.youtube_icon_like, YoutubeActivity.class));
+
+        activityItems.add(new ActivityItem("My Speech To Text", "Own speech to text implementation...",
+                R.drawable.ic_mic, SpeechToTextActivity.class));
+
+        activityItems.add(new ActivityItem("Activity Recognition", "Display user activity...",
+                R.drawable.ic_walking, ActivityRecognitionActivity.class));
+
 
         activityItems.add(new ActivityItem("WIP", "Coming soon...",
                 R.drawable.ic_warning, null));

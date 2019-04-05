@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+
+    <!-- Originals -->
+    <!--<color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#D81B60</color>-->
+
+    <color name="colorPrimary">#FFCB00</color>
+    <color name="colorPrimaryDark">#BFA230</color>
+    <color name="colorAccent">#FFE373</color>
 
     <color name="colorPrimary2">#2e4c8b</color>
     <color name="colorPrimaryDark2">#3f328c</color>
@@ -119,7 +125,6 @@
 
     <color name="bg_gradient_start">#31244e</color>
     <color name="bg_gradient_end">#6b394c</color>
-
 
 
     <color name="green">#00A424</color>
