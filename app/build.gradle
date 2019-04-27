@@ -11,11 +11,6 @@ buildscript {
     }
 }
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
-
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -25,6 +20,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -32,6 +28,34 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+           exclude 'META-INF/DEPENDENCIES'
+           exclude 'META-INF/androidx.versionedparcelable_versionedparcelable.version'
+            exclude 'META-INF/androidx.core_core.version'
+//            exclude 'META-INF/NOTICE'
+//              exclude 'META-INF/LICENSE'
+//              exclude 'META-INF/LICENSE.txt'
+//              exclude 'META-INF/NOTICE.txt'
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+
+repositories {
+    mavenCentral()
+    google()
+
+    maven { url 'https://maven.fabric.io/public' }
+
+    //Balls loading
+    maven { url "http://dl.bintray.com/glomadrian/maven" }
+    //MPAndroidChart
+    maven { url "https://jitpack.io" }
+    // Highcharts
+    maven { url "https://highsoft.bintray.com/Highcharts" }
 }
 
 dependencies {
@@ -56,7 +80,9 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:support-vector-drawable:28.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.api-client:google-api-client:1.25.0'
 
     implementation 'org.parceler:parceler-api:1.1.12'
 
@@ -72,8 +98,8 @@ dependencies {
     implementation 'com.squareup.okhttp:okhttp-urlconnection:2.6.0'
 
     // Butterknife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation "com.jakewharton:butterknife:8.4.0"
+    annotationProcessor "com.jakewharton:butterknife-compiler:8.4.0"
 
     //Volley
     implementation 'com.mcxiaoke.volley:library-aar:1.0.0'
@@ -87,8 +113,8 @@ dependencies {
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
 
     //RxAndroid
-    implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'io.reactivex:rxjava:1.1.6'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     //Circular progressBar
     //https://github.com/lzyzsd/CircleProgress
@@ -97,7 +123,7 @@ dependencies {
     // Chart
     //MPAndroidChart
     //https://github.com/PhilJay/MPAndroidChart
-    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.5'
+//    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.5'
     // Highcharts
     implementation 'com.highsoft.highcharts:highcharts:7.0.1'
 
@@ -107,17 +133,8 @@ dependencies {
     //EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
 
-    repositories {
-        //Balls loading
-        maven { url "http://dl.bintray.com/glomadrian/maven" }
-        //MPAndroidChart
-        maven { url "https://jitpack.io" }
-        // Highcharts
-        maven { url "https://highsoft.bintray.com/Highcharts" }
-    }
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
 }

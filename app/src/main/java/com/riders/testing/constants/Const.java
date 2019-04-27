@@ -80,15 +80,23 @@ public class Const {
         activityItems.add(new ActivityItem("Multi Pane", "Display content on split screen...",
                 R.drawable.ic_aspect_ratio_black_48dp, MultiPaneActivity.class));
 /*
-        listActivities.add( new ItemActivity("Multi-Pane Activity", R.drawable.ic_aspect_ratio_black_48dp, MultiPaneActivity.class) );
         listActivities.add( new ItemActivity("Contacts Database Activity", R.drawable.ic_perm_contact_calendar_black_48dp, ContactsDatabaseActivity.class) );
         listActivities.add( new ItemActivity("Search Box Activity", R.drawable.ic_alarm_black_48dp, SearchBoxActivity.class) );
         listActivities.add( new ItemActivity("Bandeau Pictures Activity", R.drawable.ic_picture_in_picture_black_48dp, BandeauPicturesActivity.class) );
         listActivities.add( new ItemActivity("Send Email Activity", R.drawable.ic_email_black_48dp, SendMailActivity.class) );
         listActivities.add( new ItemActivity("RecyclerView Basics Activity", R.drawable.ic_filter_list_black_48dp, RecyclerBasicsActivity.class) );
-        listActivities.add( new ItemActivity("RxJava Activity", R.drawable.logo_rx_java, RxJavaActivity.class) );
-        listActivities.add( new ItemActivity("Built-in WebView Activity", R.drawable.ic_open_in_browser_black_48dp, BuiltInWebViewActivity.class) );
-        listActivities.add( new ItemActivity("Songs Player (Work In Progress)", R.drawable.ic_library_music_black_48dp, SongPlayerActivity.class) );*/
+        */
+
+
+        activityItems.add(new ActivityItem("RxJava", "Reactive Android...",
+                R.drawable.logo_rx_java, RxJavaActivity.class));
+
+        activityItems.add(new ActivityItem("Built-in Web View", "Display web view in activity directly...",
+                R.drawable.ic_aspect_ratio_black_48dp, BuiltInWebViewActivity.class));
+
+        activityItems.add(new ActivityItem("Songs Player (Work In Progress)", "Display content on split screen...",
+                R.mipmap.ic_launcher_round, SongPlayerActivity.class));
+
 
         //
         activityItems.add(new ActivityItem("Youtube", "Youtube look like...",

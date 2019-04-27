@@ -182,6 +182,24 @@
             android:theme="@style/MultiPaneTheme" />
 
 
+
+        <activity android:name=".activities.RxJavaActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/MultiPaneTheme"/>
+
+        <activity android:name=".activities.BuiltInWebViewActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/BuiltInWebViewTheme"/>
+
+        <activity android:name=".activities.BuiltInBrowserActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/BuiltInWebViewTheme"/>
+
+        <activity android:name=".activities.SongPlayerActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/SongPlayerTheme"/>
+
+
         <activity
             android:name=".activities.YoutubeActivity"
             android:parentActivityName=".activities.MainActivity"
@@ -201,7 +219,6 @@
             android:name=".activities.ActivityRecognitionActivity"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme" />
-
         <!-- ////////////// ACTIVITIES ////////////// -->
 
 
