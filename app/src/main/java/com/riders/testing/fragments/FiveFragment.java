@@ -12,8 +12,13 @@ import com.riders.testing.R;
 
 public class FiveFragment extends Fragment {
 
-    public FiveFragment() {
+    public static FiveFragment newInstance() {
 
+        Bundle args = new Bundle();
+
+        FiveFragment fragment = new FiveFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

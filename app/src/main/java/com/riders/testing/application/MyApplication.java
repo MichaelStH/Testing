@@ -2,6 +2,8 @@ package com.riders.testing.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -11,12 +13,13 @@ import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.riders.testing.broadcast.ConnectivityReceiver;
+import com.riders.testing.rest.client.GooglePlacesRestClient;
 import com.riders.testing.rest.client.SearchApiRestClient;
 import com.riders.testing.rest.client.YoutubeRestClient;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
 
     public static final String TAG = MyApplication.class.getSimpleName();
@@ -30,6 +33,7 @@ public class MyApplication extends Application {
 
     private static YoutubeRestClient youtubeRestClient;
     private static SearchApiRestClient mSearchApiRestClient;
+    private static GooglePlacesRestClient mGooglePlacesRestClient;
 
 
     public MyApplication() {
@@ -37,6 +41,11 @@ public class MyApplication extends Application {
         mInstance = this;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     @Override
     public void onCreate() {
@@ -50,6 +59,7 @@ public class MyApplication extends Application {
 
         youtubeRestClient = new YoutubeRestClient();
         mSearchApiRestClient = new SearchApiRestClient();
+        mGooglePlacesRestClient = new GooglePlacesRestClient();
 
     }
 
@@ -84,6 +94,18 @@ public class MyApplication extends Application {
     public YoutubeRestClient getYoutubeRestClient() {
         return youtubeRestClient;
     }
+
+    /**
+     * Return the ApiRestClient object
+     *
+     * @return
+     */
+    public static GooglePlacesRestClient getGooglePlacesApiRestClient() {
+
+        Log.i(TAG, "return : getGooglePlacesApiRestClient()");
+        return mGooglePlacesRestClient;
+    }
+
 
     //Volley
     public RequestQueue getRequestQueue() {

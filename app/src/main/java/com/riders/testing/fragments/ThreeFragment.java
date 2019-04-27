@@ -12,8 +12,13 @@ import com.riders.testing.R;
 
 public class ThreeFragment extends Fragment {
 
-    public ThreeFragment() {
-
+    public static ThreeFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        ThreeFragment fragment = new ThreeFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

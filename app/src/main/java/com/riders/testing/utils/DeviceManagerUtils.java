@@ -230,8 +230,8 @@ public class DeviceManagerUtils {
 
             Log.e("OHOH", "Adresse : " + finalAddress + " | " + "City : " + finalCity); //This will display the final address.
 
-        } catch (IOException e) {
-        } catch (NullPointerException e) {
+        } catch (IOException |NullPointerException e) {
+            e.printStackTrace();
         }
 
         return finalAddress;

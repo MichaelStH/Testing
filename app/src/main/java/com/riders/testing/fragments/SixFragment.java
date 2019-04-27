@@ -12,9 +12,16 @@ import com.riders.testing.R;
 
 public class SixFragment extends Fragment {
 
-    public SixFragment() {
 
+    public static SixFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        SixFragment fragment = new SixFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -12,9 +12,15 @@ import com.riders.testing.R;
 
 public class FourFragment extends Fragment {
 
-    public FourFragment() {
+    public static FourFragment newInstance() {
 
+        Bundle args = new Bundle();
+
+        FourFragment fragment = new FourFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

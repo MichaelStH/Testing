@@ -4,17 +4,7 @@ import com.riders.testing.rest.api.SearchApiService;
 import com.riders.testing.rest.client.SearchApiRestClient;
 import com.riders.testing.utils.SearchUtil;
 
-import org.parceler.Parcel;
-
-
 public class RequestResponse {
-
-    @Parcel
-    public class Model {
-        public ResponseData responseData;
-        public String responseDetails;
-        public int responseStatus;
-    }
 
     public static Model call(SearchApiRestClient restClient, String... szArgs) {
         String szURL = SearchUtil.contrustURL(szArgs);

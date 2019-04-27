@@ -1,19 +1,19 @@
 package com.riders.testing.utils;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.riders.testing.R;
+import com.riders.testing.constants.SnackBarType;
 
 import java.util.Random;
 
@@ -47,6 +47,66 @@ public class Utils {
 
         Log.e(TAG, "--- Class Utils --- : Return Random url | " + randomImg);
         return randomImg;
+    }
+
+    /**
+     * Hide the keyboard
+     * @param view
+     */
+    public static void hideKeyboard(Context context, View view){
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+
+    /**
+     * Show an alertDialog
+     * @param
+     * @param title
+     * @param message
+     * @param negativeMessage
+     * @param positiveMessage
+     */
+    public static void showAlertDialog(final Activity activity, final Context context, String title, String message, final String negativeMessage, final String positiveMessage){
+        Log.i("Activity - AlertDialog", "Show alert dialog");
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        // Setting Dialog Title
+        alertDialog.setTitle(title);
+
+        // Setting Dialog Message
+        alertDialog.setMessage(message);
+        alertDialog.setNegativeButton(negativeMessage, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Utils.showActionInToast(context, negativeMessage);
+                if(negativeMessage.equalsIgnoreCase("Réessayer")){
+                    //launchActivity(context, MainActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED|Intent.FLAG_ACTIVITY_NEW_TASK, null, null);
+                }
+                if ( negativeMessage.equalsIgnoreCase("Réessayer") && DeviceManagerUtils.isConnected(context) ){
+                    dialog.dismiss();
+                }
+            }
+        });
+        alertDialog.setPositiveButton(positiveMessage, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Utils.showActionInToast(context, positiveMessage);
+                if (activity != null)
+                    activity.onBackPressed();
+                if (negativeMessage.equalsIgnoreCase("Quitter")){
+                    activity.finish();
+                }
+
+            }
+        });
+
+        alertDialog.setCancelable(false);
+
+        // Showing Alert Message
+        alertDialog.show();
     }
 
 
@@ -102,55 +162,4 @@ public class Utils {
                 .setAction("Action", null).show();
                 */
     }
-
-
-    public static boolean isSameDomain(String url, String url1) {
-        return getRootDomainUrl(url.toLowerCase()).equals(getRootDomainUrl(url1.toLowerCase()));
-    }
-
-    private static String getRootDomainUrl(String url) {
-        String[] domainKeys = url.split("/")[2].split("\\.");
-        int length = domainKeys.length;
-        int dummy = domainKeys[0].equals("www") ? 1 : 0;
-        if (length - dummy == 2)
-            return domainKeys[length - 2] + "." + domainKeys[length - 1];
-        else {
-            if (domainKeys[length - 1].length() == 2) {
-                return domainKeys[length - 3] + "." + domainKeys[length - 2] + "." + domainKeys[length - 1];
-            } else {
-                return domainKeys[length - 2] + "." + domainKeys[length - 1];
-            }
-        }
-    }
-
-    public static void tintMenuIcon(Context context, MenuItem item, int color) {
-        Drawable drawable = item.getIcon();
-        if (drawable != null) {
-            // If we don't mutate the drawable, then all drawable's with this id will have a color
-            // filter applied to it.
-            drawable.mutate();
-            drawable.setColorFilter(ContextCompat.getColor(context, color), PorterDuff.Mode.SRC_ATOP);
-        }
-    }
-
-    public static void bookmarkUrl(Context context, String url) {
-        SharedPreferences pref = context.getSharedPreferences("androidhive", 0); // 0 - for private mode
-        SharedPreferences.Editor editor = pref.edit();
-
-        // if url is already bookmarked, unbookmark it
-        if (pref.getBoolean(url, false)) {
-            editor.putBoolean(url, false);
-        } else {
-            editor.putBoolean(url, true);
-        }
-
-        editor.commit();
-    }
-
-    public static boolean isBookmarked(Context context, String url) {
-        SharedPreferences pref = context.getSharedPreferences("androidhive", 0);
-        return pref.getBoolean(url, false);
-    }
-
-
 }

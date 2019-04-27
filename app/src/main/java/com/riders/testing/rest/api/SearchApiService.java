@@ -1,6 +1,6 @@
 package com.riders.testing.rest.api;
 
-import com.riders.testing.model.RequestResponse;
+import com.riders.testing.model.Model;
 
 import retrofit.http.GET;
 import retrofit.http.Query;
@@ -12,11 +12,11 @@ import retrofit.http.Query;
 public interface SearchApiService<T> {
 
     @GET("/ajax/services/search/web?v=1.0")
-    RequestResponse.Model getResults(@Query("q") String request);
+    Model getResults(@Query("q") String request);
 
     @GET("/ajax/services/search/web?v=1.0")
-    RequestResponse.Model getResults(@Query("q") String request, @Query("userip") String userIp);
+    Model getResults(@Query("q") String request, @Query("userip") String userIp);
 
     @GET("/ajax/services/search/web?v=1.0")
-    RequestResponse.Model getResults(@Query("q") String request, @Query("start") int Start, @Query("userip") String userIp);
+    Model getResults(@Query("q") String request, @Query("start") int Start, @Query("userip") String userIp);
 }

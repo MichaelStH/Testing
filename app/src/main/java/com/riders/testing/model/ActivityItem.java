@@ -1,5 +1,6 @@
 package com.riders.testing.model;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 
 public class ActivityItem {
@@ -7,9 +8,9 @@ public class ActivityItem {
     private String title;
     private String description;
     private int icon;
-    private Class<? extends AppCompatActivity> activity;
+    private Class<? extends Activity> activity;
 
-    public ActivityItem(String title, String description, int icon, Class<? extends AppCompatActivity> activity) {
+    public ActivityItem(String title, String description, int icon, Class<? extends Activity> activity) {
         this.title = title;
         this.description = description;
         this.icon = icon;
@@ -40,11 +41,11 @@ public class ActivityItem {
         this.description = description;
     }
 
-    public Class<? extends AppCompatActivity> getActivity() {
+    public Class<? extends Activity> getActivity() {
         return activity;
     }
 
-    public void setActivity(Class<? extends AppCompatActivity> activity) {
+    public void setActivity(Class<? extends Activity> activity) {
         this.activity = activity;
     }
 }

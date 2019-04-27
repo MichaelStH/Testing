@@ -23,6 +23,7 @@ public class YoutubeItem {
 
     private String videoUrl;
 
+    public  YoutubeItem(){}
 
     public YoutubeItem(String fav_id, String name){
         this.fav_id = fav_id;

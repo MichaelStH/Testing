@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:id="@+id/multi_pane_movie_item_image_container"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:padding="16dp">
+
+            <ProgressBar
+                android:id="@+id/multi_pane_movie_item_loader_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleLargeInverse"
+                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"/>
+
+
+            <ImageView
+                android:id="@+id/multi_pane_movie_item_image_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerInside"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/multi_pane_movie_item_title_detail"
+            android:textColor="@color/title"
+            android:hint="Movie's Title"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:layout_below="@id/multi_pane_movie_item_image_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/multi_pane_movie_item_genre_detail"
+            android:layout_below="@id/multi_pane_movie_item_title_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:hint="Movie's genre"/>
+
+        <TextView
+            android:id="@+id/multi_pane_movie_item_year_detail"
+            android:textColor="@color/year"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/multi_pane_movie_item_genre_detail"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="Movie's Year"
+            android:textSize="36sp"/>
+
+    </RelativeLayout>
+
+</ScrollView>

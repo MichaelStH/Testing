@@ -12,8 +12,13 @@ import com.riders.testing.R;
 
 public class NineFragment extends Fragment {
 
-    public NineFragment() {
-
+    public static NineFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        NineFragment fragment = new NineFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

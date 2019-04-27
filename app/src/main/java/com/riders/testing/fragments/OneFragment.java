@@ -12,8 +12,13 @@ import com.riders.testing.R;
 
 public class OneFragment extends Fragment {
 
-    public OneFragment() {
-
+    public static OneFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        OneFragment fragment = new OneFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.riders.testing.utils;
+package com.riders.testing.constants;
 
 /**
  * Created by Michaël on 07/03/2017.

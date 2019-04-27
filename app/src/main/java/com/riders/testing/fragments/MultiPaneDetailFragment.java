@@ -1,0 +1,149 @@
+package com.riders.testing.fragments;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.riders.testing.R;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
+public class MultiPaneDetailFragment extends Fragment {
+
+    //Tag & Context
+    private static final String TAG = MultiPaneDetailFragment.class.getSimpleName();
+    private Context mContext;
+
+    //Views
+    @BindView(R.id.multi_pane_movie_item_image_detail)
+    ImageView ivMovieImage;
+    @BindView(R.id.multi_pane_movie_item_title_detail)
+    TextView tvTitleDetail;
+    @BindView(R.id.multi_pane_movie_item_genre_detail)
+    TextView tvGenreDetail;
+   @BindView(R.id.multi_pane_movie_item_year_detail)
+   TextView tvYearDetail;
+    @BindView(R.id.multi_pane_movie_item_loader_image)
+    ProgressBar progressBar;
+    private Unbinder unbinder;
+
+
+    public static MultiPaneDetailFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        MultiPaneDetailFragment fragment = new MultiPaneDetailFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    ///////////////////////////////////////////
+    //
+    //  Override methods
+    //
+    ///////////////////////////////////////////
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mContext = getActivity();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_multi_pane_detail, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+    ///////////////////////////////////////////
+    //
+    //  Override methods
+    //
+    ///////////////////////////////////////////
+
+
+    ///////////////////////////////////////////
+    //
+    //  Class methods
+    //
+    ///////////////////////////////////////////
+    public void setTextOnFragment(String title, String genre, String year, String movieUrl) {
+
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        Log.e(TAG , "URL RECEIVE : " + movieUrl);
+
+        Picasso.with(mContext)
+                .load(movieUrl)
+                .into(ivMovieImage, new ImageLoadedCallback(progressBar) {
+                    @Override
+                    public void onSuccess() {
+
+                        if (this.progressBar != null) {
+                            this.progressBar.setVisibility(View.GONE);
+
+                            Log.e(TAG, "Picasso - Image bien téléchargée et affichée !!!");
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        ivMovieImage.setImageResource(R.mipmap.ic_launcher);
+
+                        Log.e(TAG, "Picasso - OOOOOOOHHH CA VA PAAAAAS LAAAAA !!!");
+
+                        if (this.progressBar != null) {
+                            this.progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+        tvTitleDetail.setText(title);
+        tvGenreDetail.setText(genre);
+        tvYearDetail.setText(year);
+    }
+    ///////////////////////////////////////////
+    //
+    //  Class methods
+    //
+    ///////////////////////////////////////////
+
+
+    private class ImageLoadedCallback implements Callback {
+        ProgressBar progressBar;
+
+        public  ImageLoadedCallback(ProgressBar progBar){
+            progressBar = progBar;
+        }
+
+        @Override
+        public void onSuccess() {
+        }
+
+        @Override
+        public void onError() {
+        }
+    }
+}

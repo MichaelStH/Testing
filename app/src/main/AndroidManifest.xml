@@ -17,10 +17,12 @@
     <!--ACCESS_FINE_LOCATION permission need for google play services version.-->
     <!-- For GPS based location, this one -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.riders.testing.permission.MAPS_RECEIVE"/>
-    <uses-permission android:name="com.google.android.providers.gsf.perssion.READ_GSERVICES"/>
-    <permission android:name="com.riders.testing.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature"/>
+    <uses-permission android:name="com.riders.testing.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.google.android.providers.gsf.perssion.READ_GSERVICES" />
+
+    <permission
+        android:name="com.riders.testing.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
 
     <!-- User Data -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -32,7 +34,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- Apps -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -54,10 +56,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+        tools:replace="android:appComponentFactory"
+        android:appComponentFactory="whateverString">
 
 
         <!-- ////////////// META-DATA ////////////// -->
@@ -78,18 +83,18 @@
         <activity
             android:name=".activities.SplashActivity"
             android:label="@string/app_name"
-            android:theme="@style/SplashTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.MainActivity"
-            android:theme="@style/NoActionBarTheme"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme" />
 
         <activity
             android:name=".activities.HighChartsActivity"
@@ -99,7 +104,8 @@
             android:name=".activities.ServiceActivity"
             android:parentActivityName=".activities.MainActivity" />
 
-        <activity android:name=".activities.FabricActivity"
+        <activity
+            android:name=".activities.FabricActivity"
             android:parentActivityName=".activities.MainActivity" />
 
         <activity
@@ -114,60 +120,67 @@
             android:name=".activities.TransitionActivity"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".activities.TransitionDetailActivity"
             android:parentActivityName=".activities.TransitionActivity"
             android:theme="@style/AppTheme" />
 
-
-        <activity android:name=".activities.WorkingTabsActivity"
+        <activity
+            android:name=".activities.WorkingTabsActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/TabTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
-        </activity>
+            android:theme="@style/TabTheme" />
 
-
-        <activity android:name=".activities.FloatingLabelsActivity"
+        <activity
+            android:name=".activities.FloatingLabelsActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/SwipeDownTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
-        </activity>
+            android:theme="@style/SwipeDownTheme" />
 
-
-        <activity android:name=".activities.LocationGoogleAPIActivity"
+        <activity
+            android:name=".activities.LocationGoogleAPIActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/LocationTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
-        </activity>
+            android:theme="@style/LocationTheme" />
 
+        <activity
+            android:name=".activities.ContactListActivity"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.ContactListDetailActivity"
+            android:parentActivityName=".activities.ContactListActivity" />
 
-
-        <activity android:name=".activities.ContactListActivity"
+        <activity
+            android:name=".activities.LocationOnMapsActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:label="@string/app_name">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
-        </activity>
+            android:theme="@style/LocationTheme" />
 
+        <activity
+            android:name=".activities.ScheduleJobActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/TabTheme" />
 
-        <activity android:name=".activities.ContactListDetailActivity"
-            android:parentActivityName=".activities.ContactListActivity"
-            android:label="@string/app_name">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
-        </activity>
+        <activity
+            android:name=".activities.DeviceInformationsActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/SwipeDownTheme" />
+
+        <activity
+            android:name=".activities.PaletteActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/PaletteTheme" />
+
+        <activity
+            android:name=".activities.FilterListViewActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/FilterListViewTheme" />
+        <activity
+            android:name=".activities.FilterListViewDetailActivity"
+            android:parentActivityName=".activities.FilterListViewActivity"
+            android:theme="@style/FilterListViewTheme" />
+
+        <activity
+            android:name=".activities.MultiPaneActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/MultiPaneTheme" />
+
 
         <activity
             android:name=".activities.YoutubeActivity"
@@ -184,14 +197,12 @@
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme" />
 
-
         <activity
             android:name=".activities.ActivityRecognitionActivity"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme" />
 
         <!-- ////////////// ACTIVITIES ////////////// -->
-
 
 
         <!-- ////////////// SERVICES ////////////// -->
@@ -206,14 +217,14 @@
         <!-- ////////////// SERVICES ////////////// -->
 
 
-
         <!-- ////////////// BROADCAST RECEIVER ////////////// -->
         <!-- Broadcast Receiver -->
-        <receiver android:name=".broadcast.NotificationBuilderReceiver"
+        <receiver
+            android:name=".broadcast.NotificationBuilderReceiver"
             android:enabled="true"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
@@ -222,7 +233,8 @@
             android:name=".broadcast.ConnectivityReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife" />
             </intent-filter>
         </receiver>
         <!-- ////////////// BROADCAST RECEIVER ////////////// -->

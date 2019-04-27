@@ -9,11 +9,15 @@ import android.view.ViewGroup;
 
 import com.riders.testing.R;
 
-
 public class TwoFragment extends Fragment {
 
-    public TwoFragment() {
+    public static TwoFragment newInstance() {
 
+        Bundle args = new Bundle();
+
+        TwoFragment fragment = new TwoFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override

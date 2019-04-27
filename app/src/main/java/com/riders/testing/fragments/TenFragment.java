@@ -12,9 +12,15 @@ import com.riders.testing.R;
 
 public class TenFragment extends Fragment {
 
-    public TenFragment() {
+    public static TenFragment newInstance() {
 
+        Bundle args = new Bundle();
+
+        TenFragment fragment = new TenFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
