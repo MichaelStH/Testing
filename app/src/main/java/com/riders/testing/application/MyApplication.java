@@ -2,6 +2,7 @@ package com.riders.testing.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.riders.testing.broadcast.ConnectivityReceiver;
 import com.riders.testing.rest.client.GooglePlacesRestClient;
 import com.riders.testing.rest.client.SearchApiRestClient;
 import com.riders.testing.rest.client.YoutubeRestClient;
+import com.riders.testing.utils.CompatibilityManagerUtils;
 
 import io.fabric.sdk.android.Fabric;
 
