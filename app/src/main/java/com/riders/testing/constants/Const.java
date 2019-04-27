@@ -87,7 +87,6 @@ public class Const {
         listActivities.add( new ItemActivity("RecyclerView Basics Activity", R.drawable.ic_filter_list_black_48dp, RecyclerBasicsActivity.class) );
         */
 
-
         activityItems.add(new ActivityItem("RxJava", "Reactive Android...",
                 R.drawable.logo_rx_java, RxJavaActivity.class));
 
@@ -97,8 +96,6 @@ public class Const {
         activityItems.add(new ActivityItem("Songs Player (Work In Progress)", "Display content on split screen...",
                 R.mipmap.ic_launcher_round, SongPlayerActivity.class));
 
-
-        //
         activityItems.add(new ActivityItem("Youtube", "Youtube look like...",
                 R.drawable.youtube_icon_like, YoutubeActivity.class));
 
