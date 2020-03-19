@@ -1,6 +1,8 @@
 package com.riders.testing.rest.client;
 
 import android.util.Log;
+
+import com.riders.testing.constants.Const;
 import com.riders.testing.rest.api.GooglePlacesAPIService;
 
 import retrofit2.Retrofit;
@@ -13,7 +15,6 @@ public class GooglePlacesRestClient {
 
     private static final String TAG = GooglePlacesRestClient.class.getSimpleName();
 
-    private static final String BASE_ENDPOINT = "https://maps.googleapis.com/maps/api/place/";
 
     private GooglePlacesAPIService apiRestService;
 
@@ -24,14 +25,11 @@ public class GooglePlacesRestClient {
         Log.i(TAG, "Construct");
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_ENDPOINT)
+                .baseUrl(Const.BASE_ENDPOINT_GOOGLE_PLACES)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         apiRestService = retrofit.create(GooglePlacesAPIService.class);
-
-        Log.i(TAG, "ApiService = restAdapter.create(MyApiService.class)");
-
     }
 
 
@@ -41,7 +39,6 @@ public class GooglePlacesRestClient {
      * @return
      */
     public GooglePlacesAPIService getApiService() {
-        Log.i(TAG, "Method public GooglePlacesAPIService getApiService()");
         return apiRestService;
     }
 }

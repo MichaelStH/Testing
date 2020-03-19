@@ -1,7 +1,28 @@
 package com.riders.testing.constants;
 
 import com.riders.testing.R;
-import com.riders.testing.activities.*;
+import com.riders.testing.activities.ActivityRecognitionActivity;
+import com.riders.testing.activities.BuiltInWebViewActivity;
+import com.riders.testing.activities.ColorActivity;
+import com.riders.testing.activities.ContactListActivity;
+import com.riders.testing.activities.DeviceInformationsActivity;
+import com.riders.testing.activities.FabricActivity;
+import com.riders.testing.activities.FilterListViewActivity;
+import com.riders.testing.activities.FloatingLabelsActivity;
+import com.riders.testing.activities.HighChartsActivity;
+import com.riders.testing.activities.LocationGoogleAPIActivity;
+import com.riders.testing.activities.LocationOnMapsActivity;
+import com.riders.testing.activities.MultiPaneActivity;
+import com.riders.testing.activities.PaletteActivity;
+import com.riders.testing.activities.RecyclerViewActivity;
+import com.riders.testing.activities.RxJavaActivity;
+import com.riders.testing.activities.ScheduleJobActivity;
+import com.riders.testing.activities.ServiceActivity;
+import com.riders.testing.activities.SongPlayerActivity;
+import com.riders.testing.activities.SpeechToTextActivity;
+import com.riders.testing.activities.TransitionActivity;
+import com.riders.testing.activities.WorkingTabsActivity;
+import com.riders.testing.activities.YoutubeActivity;
 import com.riders.testing.model.ActivityItem;
 import com.riders.testing.model.RecyclerItem;
 
@@ -12,6 +33,15 @@ public class Const {
 
     public static ArrayList<ActivityItem> activityItems;
     static ArrayList<RecyclerItem> recyclerItems;
+
+    //REST client Base URL
+    public static final String BASE_ENDPOINT_YOUTUBE = "https://raw.githubusercontent.com";
+    public static final String BASE_ENDPOINT_SEARCH = "https://ajax.googleapis.com";
+    public static final String BASE_ENDPOINT_GOOGLE_PLACES = "https://maps.googleapis.com/maps/api/place/";
+    public static final String BASE_ENDPOINT_WEATHER = "http://api.openweathermap.org";
+    public static final String BASE_ENDPOINT_WEATHER_ICON = "http://openweathermap.org/img/wn/10d@2x.png";
+    public static final String WEATHER_ICON_SUFFIX = "@2x.png";
+
 
     // Activity Recognition
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";
@@ -74,7 +104,7 @@ public class Const {
         activityItems.add(new ActivityItem("Palette", "Get different color from an image",
                 R.drawable.ic_palette_black_48dp, PaletteActivity.class));
 
-        activityItems.add(new ActivityItem("Filter ListView","ListView with filter..." ,
+        activityItems.add(new ActivityItem("Filter ListView", "ListView with filter...",
                 R.drawable.ic_filter_list_black_48dp, FilterListViewActivity.class));
 
         activityItems.add(new ActivityItem("Multi Pane", "Display content on split screen...",
