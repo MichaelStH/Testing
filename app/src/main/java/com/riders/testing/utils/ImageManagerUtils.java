@@ -19,11 +19,14 @@ import android.widget.ImageView;
  */
 public class ImageManagerUtils {
 
-    /** This class can't be instantiated. */
-    private ImageManagerUtils(){ }
+    /**
+     * This class can't be instantiated.
+     */
+    private ImageManagerUtils() {
+    }
 
 
-    public static void setBlurredImage(Context context, ImageView imageView, int radius ){
+    public static void setBlurredImage(Context context, ImageView imageView, int radius) {
 
         BitmapDrawable drawableFromImageView = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmapFromImageView = drawableFromImageView.getBitmap();
@@ -33,7 +36,7 @@ public class ImageManagerUtils {
 
     }
 
-    private static Bitmap blurRenderScript(Context context,Bitmap smallBitmap, int radius) {
+    private static Bitmap blurRenderScript(Context context, Bitmap smallBitmap, int radius) {
         try {
             smallBitmap = RGB565toARGB888(smallBitmap);
         } catch (Exception e) {

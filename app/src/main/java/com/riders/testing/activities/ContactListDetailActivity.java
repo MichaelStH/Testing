@@ -2,12 +2,14 @@ package com.riders.testing.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.riders.testing.R;
 import com.squareup.picasso.Picasso;
 
@@ -86,7 +88,7 @@ public class ContactListDetailActivity extends AppCompatActivity {
         mSurnameTextView.setText(itemSurnameDetail);
         mEmailTextView.setText(itemEmailDetail);
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(itemImage)
                 .into(mImageDetailToolbar);
     }

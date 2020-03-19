@@ -2,8 +2,6 @@ package com.riders.testing.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.riders.testing.R;
 import com.squareup.picasso.Callback;
@@ -33,8 +34,8 @@ public class MultiPaneDetailFragment extends Fragment {
     TextView tvTitleDetail;
     @BindView(R.id.multi_pane_movie_item_genre_detail)
     TextView tvGenreDetail;
-   @BindView(R.id.multi_pane_movie_item_year_detail)
-   TextView tvYearDetail;
+    @BindView(R.id.multi_pane_movie_item_year_detail)
+    TextView tvYearDetail;
     @BindView(R.id.multi_pane_movie_item_loader_image)
     ProgressBar progressBar;
     private Unbinder unbinder;
@@ -93,9 +94,9 @@ public class MultiPaneDetailFragment extends Fragment {
             progressBar.setVisibility(View.VISIBLE);
         }
 
-        Log.e(TAG , "URL RECEIVE : " + movieUrl);
+        Log.e(TAG, "URL RECEIVE : " + movieUrl);
 
-        Picasso.with(mContext)
+        Picasso.get()
                 .load(movieUrl)
                 .into(ivMovieImage, new ImageLoadedCallback(progressBar) {
                     @Override
@@ -109,7 +110,9 @@ public class MultiPaneDetailFragment extends Fragment {
                     }
 
                     @Override
-                    public void onError() {
+                    public void onError(Exception e) {
+                        super.onError(e);
+
                         ivMovieImage.setImageResource(R.mipmap.ic_launcher);
 
                         Log.e(TAG, "Picasso - OOOOOOOHHH CA VA PAAAAAS LAAAAA !!!");
@@ -118,6 +121,7 @@ public class MultiPaneDetailFragment extends Fragment {
                             this.progressBar.setVisibility(View.GONE);
                         }
                     }
+
                 });
 
         tvTitleDetail.setText(title);
@@ -134,7 +138,7 @@ public class MultiPaneDetailFragment extends Fragment {
     private class ImageLoadedCallback implements Callback {
         ProgressBar progressBar;
 
-        public  ImageLoadedCallback(ProgressBar progBar){
+        public ImageLoadedCallback(ProgressBar progBar) {
             progressBar = progBar;
         }
 
@@ -143,7 +147,8 @@ public class MultiPaneDetailFragment extends Fragment {
         }
 
         @Override
-        public void onError() {
+        public void onError(Exception e) {
+            e.printStackTrace();
         }
     }
 }

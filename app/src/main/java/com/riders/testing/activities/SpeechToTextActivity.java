@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -92,6 +93,7 @@ public class SpeechToTextActivity extends AppCompatActivity implements Recogniti
                     public void onPermissionDenied(PermissionDeniedResponse response) {
 
                         Log.d(TAG, "permission denied");
+                        SpeechToTextActivity.this.finish();
                     }
 
                     @Override
@@ -104,7 +106,8 @@ public class SpeechToTextActivity extends AppCompatActivity implements Recogniti
 
     @Override
     protected void onDestroy() {
-        speech.stopListening();
+        if (speech != null)
+            speech.stopListening();
         super.onDestroy();
     }
     ///////////////////////////////////////////

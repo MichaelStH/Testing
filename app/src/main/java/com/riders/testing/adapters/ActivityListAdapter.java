@@ -1,11 +1,12 @@
 package com.riders.testing.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.riders.testing.R;
 import com.riders.testing.interfaces.ActivityListClickListener;
@@ -39,7 +40,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityViewHolder
     @Override
     public ActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         return new ActivityViewHolder(context, LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.row_app_view, parent, false));
+                .inflate(R.layout.row_app_view, parent, false));
     }
 
     @Override

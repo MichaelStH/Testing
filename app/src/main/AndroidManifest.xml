@@ -54,15 +54,16 @@
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
+        android:appComponentFactory="whateverString"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
-        tools:replace="android:appComponentFactory"
-        android:appComponentFactory="whateverString">
+        tools:replace="android:appComponentFactory">
 
 
         <!-- ////////////// META-DATA ////////////// -->
@@ -83,7 +84,6 @@
         <activity
             android:name=".activities.SplashActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -93,7 +93,6 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/NoActionBarTheme" />
 
         <activity
@@ -182,22 +181,25 @@
             android:theme="@style/MultiPaneTheme" />
 
 
-
-        <activity android:name=".activities.RxJavaActivity"
+        <activity
+            android:name=".activities.RxJavaActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/MultiPaneTheme"/>
+            android:theme="@style/MultiPaneTheme" />
 
-        <activity android:name=".activities.BuiltInWebViewActivity"
+        <activity
+            android:name=".activities.BuiltInWebViewActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/BuiltInWebViewTheme"/>
+            android:theme="@style/BuiltInWebViewTheme" />
 
-        <activity android:name=".activities.BuiltInBrowserActivity"
+        <activity
+            android:name=".activities.BuiltInBrowserActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/BuiltInWebViewTheme"/>
+            android:theme="@style/BuiltInWebViewTheme" />
 
-        <activity android:name=".activities.SongPlayerActivity"
+        <activity
+            android:name=".activities.SongPlayerActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/SongPlayerTheme"/>
+            android:theme="@style/SongPlayerTheme" />
 
 
         <activity
@@ -250,7 +252,8 @@
             android:name=".broadcast.ConnectivityReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                <action
+                    android:name="android.net.conn.CONNECTIVITY_CHANGE"
                     tools:ignore="BatteryLife" />
             </intent-filter>
         </receiver>
@@ -258,9 +261,10 @@
 
 
         <!-- Fabric -->
-        <meta-data
+        <!--<meta-data
             android:name="io.fabric.ApiKey"
-            android:value="d1773a19c4de531258673ec04e551804409ed0e2" />
+            android:value="d1773a19c4de531258673ec04e551804409ed0e2" />-->
+
     </application>
 
 </manifest>

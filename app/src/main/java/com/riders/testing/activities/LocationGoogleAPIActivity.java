@@ -1,6 +1,7 @@
 package com.riders.testing.activities;
 
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LocationGoogleAPIActivity extends AppCompatActivity {
 }

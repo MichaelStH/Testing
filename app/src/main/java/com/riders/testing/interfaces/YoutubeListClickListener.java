@@ -1,6 +1,8 @@
 package com.riders.testing.interfaces;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.riders.testing.model.Video;

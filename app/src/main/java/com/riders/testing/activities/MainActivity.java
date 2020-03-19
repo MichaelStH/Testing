@@ -16,18 +16,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +48,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -76,8 +78,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ActivityListClickListener ,
-        LocationListener, ConnectivityReceiver.ConnectivityReceiverListener{
+public class MainActivity extends AppCompatActivity implements ActivityListClickListener,
+        LocationListener, ConnectivityReceiver.ConnectivityReceiverListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -277,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             // Check for the integer request code originally supplied to startResolutionForResult().
             case REQUEST_CHECK_SETTINGS:
@@ -307,6 +310,12 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
             case R.id.info_icon:
 //                toggleBottomSheet();
                 showBottomSheetDialogFragment();
+                break;
+
+            case R.id.action_force_crash:
+                throw new RuntimeException("This is a crash");
+
+            default:
                 break;
         }
 
@@ -575,7 +584,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
                 .make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
 
         View sbView = snackbar.getView();
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = (TextView) sbView.findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setTextColor(color);
         snackbar.show();
     }
@@ -592,7 +601,6 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
 //            btnBottomSheet.setText("Expand sheet");
         }
     }*/
-
     public void showBottomSheetDialog() {
         View view = getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog, null);
 
@@ -639,6 +647,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
         else
             startActivity(new Intent(this, item.getActivity()));
     }
+
     @Override
     public void onLocationChanged(Location location) {
         Log.e(TAG, "Location :\n" + "latitude : " + location.getLatitude() + ", longitude : " + location.getLongitude());

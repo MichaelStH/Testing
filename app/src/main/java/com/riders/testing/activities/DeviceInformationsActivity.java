@@ -6,12 +6,12 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -20,7 +20,6 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.riders.testing.R;
-import com.riders.testing.utils.DeviceManagerUtils;
 
 import java.lang.reflect.Method;
 
@@ -95,26 +94,26 @@ public class DeviceInformationsActivity extends AppCompatActivity {
     /**
      * Initialize Views
      */
-    public void initViews(){
+    public void initViews() {
 
         Log.i(TAG, "Init Views");
 
         tvDevice = (TextView) findViewById(R.id.tv_device_device);
-        tvModel = (TextView)findViewById(R.id.tv_device_model);
-        tvBrand = (TextView)findViewById(R.id.tv_device_brand);
-        tvScreenHeight = (TextView)findViewById(R.id.tv_device_screen_height);
-        tvScreenWidth = (TextView)findViewById(R.id.tv_device_screen_width);
-        tvHardware = (TextView)findViewById(R.id.tv_device_hardware);
-        tvProduct = (TextView)findViewById(R.id.tv_device_product);
+        tvModel = (TextView) findViewById(R.id.tv_device_model);
+        tvBrand = (TextView) findViewById(R.id.tv_device_brand);
+        tvScreenHeight = (TextView) findViewById(R.id.tv_device_screen_height);
+        tvScreenWidth = (TextView) findViewById(R.id.tv_device_screen_width);
+        tvHardware = (TextView) findViewById(R.id.tv_device_hardware);
+        tvProduct = (TextView) findViewById(R.id.tv_device_product);
         tvManufacturer = (TextView) findViewById(R.id.tv_device_manufacturer);
         tvSerial = (TextView) findViewById(R.id.tv_device_serial);
-        tvBoard = (TextView)findViewById(R.id.tv_device_board);
-        tvBootloader = (TextView)findViewById(R.id.tv_device_bootlaoder);
-        tvDisplay = (TextView)findViewById(R.id.tv_device_display);
-        tvFingerprint = (TextView)findViewById(R.id.tv_device_fingerprint);
-        tvID = (TextView)findViewById(R.id.tv_device_id);
-        tvTags = (TextView)findViewById(R.id.tv_device_tags);
-        tvType = (TextView)findViewById(R.id.tv_device_type);
+        tvBoard = (TextView) findViewById(R.id.tv_device_board);
+        tvBootloader = (TextView) findViewById(R.id.tv_device_bootlaoder);
+        tvDisplay = (TextView) findViewById(R.id.tv_device_display);
+        tvFingerprint = (TextView) findViewById(R.id.tv_device_fingerprint);
+        tvID = (TextView) findViewById(R.id.tv_device_id);
+        tvTags = (TextView) findViewById(R.id.tv_device_tags);
+        tvType = (TextView) findViewById(R.id.tv_device_type);
 
     }
 
@@ -123,7 +122,7 @@ public class DeviceInformationsActivity extends AppCompatActivity {
      * Retrieve infos from the device
      */
     @SuppressLint("MissingPermission")
-    public void getInfos(){
+    public void getInfos() {
 
         Log.i(TAG, "Get Informations");
 
@@ -135,7 +134,7 @@ public class DeviceInformationsActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        deviceScreenHeight= metrics.heightPixels;
+        deviceScreenHeight = metrics.heightPixels;
         deviceScreenWidth = metrics.widthPixels;
 
         deviceHardware = Build.HARDWARE;
@@ -175,7 +174,7 @@ public class DeviceInformationsActivity extends AppCompatActivity {
         /**
          * http://stackoverflow.com/questions/1972381/how-to-get-the-devices-imei-esn-programmatically-in-android
          */
-        final TelephonyManager tm = (TelephonyManager)this.getSystemService(Context.TELEPHONY_SERVICE);
+        final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 
 
         Dexter.withActivity(this)
@@ -215,23 +214,23 @@ public class DeviceInformationsActivity extends AppCompatActivity {
 
         String logDeviceInfos =
                 "Model : " + deviceModel + " \n" +
-                "Product : " + deviceProduct + "(don't need) \n" +
-                "Manufacturer : " + deviceManufact + "(not necessary) \n" +
-                "Serial : " + deviceSerial + " \n" +
-                "Brand : " + deviceBrand + " \n" +
-                "Display : " + deviceDisplay + "(don't need) \n" +
-                "Screen Width : " + deviceScreenWidth + " \n" +
-                "Screen Height : " + deviceScreenHeight + " \n" +
-                "Hardware : " + deviceHardware + " \n" +
-                "Version SDK : API " + deviceVersionSDK + " \n" +
-                "IMEI : " + deviceIMEI + "\n";
+                        "Product : " + deviceProduct + "(don't need) \n" +
+                        "Manufacturer : " + deviceManufact + "(not necessary) \n" +
+                        "Serial : " + deviceSerial + " \n" +
+                        "Brand : " + deviceBrand + " \n" +
+                        "Display : " + deviceDisplay + "(don't need) \n" +
+                        "Screen Width : " + deviceScreenWidth + " \n" +
+                        "Screen Height : " + deviceScreenHeight + " \n" +
+                        "Hardware : " + deviceHardware + " \n" +
+                        "Version SDK : API " + deviceVersionSDK + " \n" +
+                        "IMEI : " + deviceIMEI + "\n";
 
-        Log.i(TAG,logDeviceInfos);
+        Log.i(TAG, logDeviceInfos);
 
 
     }
 
-    public void setTexts(){
+    public void setTexts() {
 
         Log.i(TAG, "Set Texts");
 

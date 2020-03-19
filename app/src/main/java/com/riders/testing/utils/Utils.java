@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.design.widget.Snackbar;
+
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.snackbar.Snackbar;
 import com.riders.testing.R;
 import com.riders.testing.constants.SnackBarType;
 
@@ -137,7 +138,7 @@ public class Utils {
         View snackBarView = snackBar.getView();
 
         // change snackbar text color
-        int snackBarTextId = android.support.design.R.id.snackbar_text;
+        int snackBarTextId = com.google.android.material.R.id.snackbar_text;
         TextView textView = (TextView) snackBarView.findViewById(snackBarTextId);
         switch (type){
             case NORMAL:

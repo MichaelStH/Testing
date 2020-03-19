@@ -1,8 +1,9 @@
 package com.riders.testing.adapters;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.riders.testing.R;
 import com.riders.testing.model.Movie;

@@ -9,13 +9,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -76,7 +77,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
     GPSTracker gps;
 
     // Google API Key
-    private static final String API_KEY = MyApplication.getAppContext().getResources().getString( R.string.google_maps_key );
+    private static final String API_KEY = MyApplication.getAppContext().getResources().getString(R.string.google_maps_key);
 
     // Google Places serach url's
     private static final String PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/search/json?";
@@ -88,7 +89,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
     private double _radius;
 
     // ListItems data
-    ArrayList<HashMap<String, String>> placesListItems = new ArrayList<HashMap<String,String>>();
+    ArrayList<HashMap<String, String>> placesListItems = new ArrayList<HashMap<String, String>>();
 
     // KEY Strings
     public static String KEY_REFERENCE = "reference"; // id of the place
@@ -124,7 +125,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
         call.enqueue(new Callback<GooglePlacesResponse>() {
             @Override
             public void onResponse(Call<GooglePlacesResponse> call, Response<GooglePlacesResponse> response) {
-                Log.e( "OHOH Retrofit", "OK ! - " + response.body().getStatus() );
+                Log.e("OHOH Retrofit", "OK ! - " + response.body().getStatus());
             }
 
             @Override
@@ -191,7 +192,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
 
         mGoogleMap = googleMap;
 
-        setMapUISettings( mGoogleMap );
+        setMapUISettings(mGoogleMap);
         setLocationSettings();
 
         //setGooglePlacesAPI();
@@ -231,7 +232,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
 
     }
 
-    public void setMapUISettings(GoogleMap googleMap){
+    public void setMapUISettings(GoogleMap googleMap) {
         mGoogleMap.setBuildingsEnabled(true);
         mGoogleMap.getUiSettings().setCompassEnabled(true);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(true);
@@ -249,7 +250,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
         mGoogleMap.setMyLocationEnabled(true);
     }
 
-    public void setLocationSettings(){
+    public void setLocationSettings() {
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         mCriteria = new Criteria();
 
@@ -273,7 +274,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
         }
     }
 
-    public void setGooglePlacesAPI(){
+    public void setGooglePlacesAPI() {
         // creating GPS Class object
         gps = new GPSTracker(this);
 
@@ -296,13 +297,15 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
     }
 
 
-    /** A method to download json data from url */
+    /**
+     * A method to download json data from url
+     */
     @SuppressLint("LongLogTag")
     private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try{
+        try {
             URL url = new URL(strUrl);
 
             // Creating an http connection to communicate with url
@@ -316,10 +319,10 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
 
             BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
 
-            StringBuffer sb  = new StringBuffer();
+            StringBuffer sb = new StringBuffer();
 
             String line = "";
-            while( ( line = br.readLine())  != null){
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
 
@@ -327,9 +330,9 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
 
             br.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.d("Exception while downloading url", e.toString());
-        }finally{
+        } finally {
             iStream.close();
             urlConnection.disconnect();
         }
@@ -339,14 +342,14 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
 
     /**
      * Background Async Task to Load Google places
-     * */
+     */
     class LoadPlaces extends AsyncTask<String, String, String> {
 
         String data = null;
 
         /**
          * Before starting background thread Show Progress Dialog
-         * */
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -362,10 +365,10 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
         // Invoked by execute() method of this object
         @Override
         protected String doInBackground(String... url) {
-            try{
+            try {
                 data = downloadUrl(url[0]);
-            }catch(Exception e){
-                Log.d("Background Task",e.toString());
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
             }
             return data;
         }
@@ -376,7 +379,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
          * and show the data in UI
          * Always use runOnUiThread(new Runnable()) to update UI from background
          * thread, otherwise you will get error
-         * **/
+         **/
         protected void onPostExecute(String file_url) {
             Log.e("OHOH", "result : " + file_url);
 

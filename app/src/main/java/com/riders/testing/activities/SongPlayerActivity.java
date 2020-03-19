@@ -1,14 +1,15 @@
 package com.riders.testing.activities;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.riders.testing.R;
 import com.riders.testing.utils.SongsPlayerManager;
@@ -40,7 +41,7 @@ public class SongPlayerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( R.layout.activity_songs_player );
+        setContentView(R.layout.activity_songs_player);
 
         ButterKnife.bind(this);
 
@@ -48,50 +49,50 @@ public class SongPlayerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mManager = new SongsPlayerManager();
-        Log.d( TAG , "Preparing data" );
+        Log.d(TAG, "Preparing data");
         prepareData();
 
     }
 
 
-    private void prepareData(){
+    private void prepareData() {
 
         playList = mManager.getPlayList();
 
         //debug
-        if( playList != null && playList.size() == 0 ){
+        if (playList != null && playList.size() == 0) {
             mSongsListView.setAdapter(new SimpleAdapter(
                     this,
                     playList,
                     android.R.layout.simple_list_item_1,
-                    new String[] { "La Liste est vide" },
-                    new int[] { android.R.id.text1 }
+                    new String[]{"La Liste est vide"},
+                    new int[]{android.R.id.text1}
 
             ));
-            Log.d( TAG , "Leave the function" );
+            Log.d(TAG, "Leave the function");
             return;
         }
 
-        Log.d( TAG , "Debug the files found" );
-        for ( HashMap<String, String> song : playList ){
-            for ( Map.Entry<String, String> key : song.entrySet()){
-                Log.e( TAG,  key.getKey() + " - " + key.getValue() );
+        Log.d(TAG, "Debug the files found");
+        for (HashMap<String, String> song : playList) {
+            for (Map.Entry<String, String> key : song.entrySet()) {
+                Log.e(TAG, key.getKey() + " - " + key.getValue());
             }
         }
 
-        Log.d( TAG , "Fill the listView with data" );
+        Log.d(TAG, "Fill the listView with data");
         renderPost();
     }
 
-    private void renderPost(){
+    private void renderPost() {
         //mSongsListView.setAdapter(new SongsAdapter( playList ) );
 
         mSongsListView.setAdapter(new SimpleAdapter(
                 this,
                 playList,
                 android.R.layout.simple_list_item_2,
-                new String[] { mManager.SONG_MAP_KEY, mManager.SONG_MAP_VALUE },
-                new int[] { android.R.id.text1,android.R.id.text2 }
+                new String[]{mManager.SONG_MAP_KEY, mManager.SONG_MAP_VALUE},
+                new int[]{android.R.id.text1, android.R.id.text2}
 
         ));
     }
