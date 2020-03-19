@@ -3,7 +3,6 @@ package com.riders.testing.utils;
 
 import com.riders.testing.application.MyApplication;
 import com.squareup.okhttp.OkHttpClient;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -16,7 +15,7 @@ public class PicassoSingleton {
 
     private OkHttpClient okHttpClient = new OkHttpClient();
     private Picasso picasso = new Picasso.Builder(MyApplication.getAppContext())
-            .downloader(new OkHttpDownloader(okHttpClient))
+//            .downloader(new OkHttpDownloader(okHttpClient))
             .build();
 
     public Picasso getPicasso() {

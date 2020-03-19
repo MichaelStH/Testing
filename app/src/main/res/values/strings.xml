@@ -167,5 +167,7 @@
     <string name="action_back">Back</string>
     <string name="action_forward">Forward</string>
     <string name="action_bookmark">Bookmark</string>
+    <string name="info_settings">Device info</string>
+    <string name="connection_settings">Connection info</string>
 
 </resources>

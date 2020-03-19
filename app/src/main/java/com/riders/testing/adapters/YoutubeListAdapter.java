@@ -1,23 +1,17 @@
 package com.riders.testing.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.riders.testing.R;
 import com.riders.testing.interfaces.YoutubeListClickListener;
 import com.riders.testing.model.Video;
-import com.riders.testing.model.YoutubeItem;
 import com.riders.testing.views.YoutubeViewHolder;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -72,7 +66,7 @@ public class YoutubeListAdapter extends RecyclerView.Adapter<YoutubeViewHolder> 
         holder.itemCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onYoutubeItemClicked(holder.getImageView() , itemYoutubeVideo, holder.getAdapterPosition());
+                listener.onYoutubeItemClicked(holder.getImageView(), itemYoutubeVideo, holder.getAdapterPosition());
             }
         });
     }

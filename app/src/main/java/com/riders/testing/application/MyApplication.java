@@ -1,25 +1,21 @@
 package com.riders.testing.application;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.riders.testing.broadcast.ConnectivityReceiver;
 import com.riders.testing.rest.client.GooglePlacesRestClient;
 import com.riders.testing.rest.client.SearchApiRestClient;
 import com.riders.testing.rest.client.YoutubeRestClient;
-import com.riders.testing.utils.CompatibilityManagerUtils;
 
-import io.fabric.sdk.android.Fabric;
 
 public class MyApplication extends MultiDexApplication {
 
@@ -54,7 +50,10 @@ public class MyApplication extends MultiDexApplication {
         super.onCreate();
 
         //Init fabric stuff
-        Fabric.with(this, new Answers(), new Crashlytics());
+        // Fabric.with(this, new Answers(), new Crashlytics());
+        FirebaseCrashlytics crashlytics = FirebaseCrashlytics.getInstance();
+        crashlytics.setCrashlyticsCollectionEnabled(true);
+        crashlytics.setUserId("myAppUserId");
 
         mInstance = this;
         context = this;

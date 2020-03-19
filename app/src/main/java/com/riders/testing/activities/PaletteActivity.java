@@ -4,16 +4,19 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.palette.graphics.Palette;
 
 import com.riders.testing.R;
 import com.riders.testing.utils.CompatibilityManagerUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,7 +71,7 @@ public class PaletteActivity extends AppCompatActivity {
 
     public void getImage() {
         //j'utilise picasso afin de récupérer l'image
-        Picasso.with(this)
+        Picasso.get()
                 .load(IMAGE_URL)
                 //.load(R.drawable.image1)
                 .fit()
@@ -99,8 +102,9 @@ public class PaletteActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onError() {
-
+                            public void onError(Exception e) {
+                                Log.e(TAG, Objects.requireNonNull(e.getMessage()));
+                                e.printStackTrace();
                             }
                         });
     }

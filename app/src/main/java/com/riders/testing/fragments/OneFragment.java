@@ -1,11 +1,12 @@
 package com.riders.testing.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.riders.testing.R;
 
@@ -13,9 +14,9 @@ import com.riders.testing.R;
 public class OneFragment extends Fragment {
 
     public static OneFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         OneFragment fragment = new OneFragment();
         fragment.setArguments(args);
         return fragment;

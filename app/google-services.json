@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "316265173741",
+    "firebase_url": "https://testing-2e7be.firebaseio.com",
+    "project_id": "testing-2e7be",
+    "storage_bucket": "testing-2e7be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316265173741:android:8b3822effe7c6d53",
+        "android_client_info": {
+          "package_name": "com.riders.testing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316265173741-3r2jtd8au9pjj0drnuvbtfuvktpt5i66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEdyha6oefRJJP7F9SlAugUQfZuzE6_Lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316265173741-3r2jtd8au9pjj0drnuvbtfuvktpt5i66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,13 +3,13 @@ package com.riders.testing.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.riders.testing.R;
 import com.riders.testing.adapters.ContactAdapter;
@@ -23,7 +23,7 @@ import java.util.Random;
  * Created by Michaël on 31/01/2018.
  */
 
-public class ContactListActivity extends AppCompatActivity /*implements RecyclerView.OnItemTouchListener*/{
+public class ContactListActivity extends AppCompatActivity /*implements RecyclerView.OnItemTouchListener*/ {
 
     private static final String TAG = ContactListActivity.class.getSimpleName();
 
@@ -81,7 +81,7 @@ public class ContactListActivity extends AppCompatActivity /*implements Recycler
             @Override
             public void onItemClick(View itemView, int position) {
 
-                Log.d("OHOHO" , "" + position);
+                Log.d("OHOHO", "" + position);
 
                 String name = ((TextView) itemView.findViewById(R.id.txtName)).getText().toString();
                 String surname = ((TextView) itemView.findViewById(R.id.txtSurname)).getText().toString();
@@ -133,7 +133,7 @@ public class ContactListActivity extends AppCompatActivity /*implements Recycler
     private List<ContactInfo> createList(int size) {
 
         List<ContactInfo> result = new ArrayList<ContactInfo>();
-        for (int i=1; i <= size; i++) {
+        for (int i = 1; i <= size; i++) {
             ContactInfo contactInfo = new ContactInfo();
             contactInfo.name = ContactInfo.NAME_PREFIX + i;
             contactInfo.surname = ContactInfo.SURNAME_PREFIX + i;

@@ -3,12 +3,13 @@ package com.riders.testing.activities;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.riders.testing.R;
 
@@ -30,7 +31,7 @@ public class ColorActivity extends AppCompatActivity {
     TextView targetColorTextView;
 
     @BindView(R.id.change_color_button)
-    Button chageColorButton;
+    Button changeColorButton;
 
     private static String baseColor = "rgb(33,214,9)";
     private static String baseColor2 = "rgb(255,156,0)";

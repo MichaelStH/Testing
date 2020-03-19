@@ -15,7 +15,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.StatFs;
-import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 import android.util.Log;

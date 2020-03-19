@@ -2,8 +2,6 @@ package com.riders.testing.activities;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputLayout;
 import com.riders.testing.R;
 import com.riders.testing.utils.CompatibilityManagerUtils;
 

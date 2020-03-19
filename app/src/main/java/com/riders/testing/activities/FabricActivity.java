@@ -1,19 +1,15 @@
 package com.riders.testing.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ContentViewEvent;
-import com.crashlytics.android.answers.CustomEvent;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.riders.testing.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.fabric.sdk.android.Fabric;
 
 public class FabricActivity extends AppCompatActivity {
 
@@ -23,7 +19,7 @@ public class FabricActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+//        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_fabric);
 
         ButterKnife.bind(this);
@@ -32,12 +28,12 @@ public class FabricActivity extends AppCompatActivity {
         logUser();
 
         // TODO: Use your own attributes to track content views in your app
-        Answers.getInstance().logContentView(new ContentViewEvent()
+        /*Answers.getInstance().logContentView(new ContentViewEvent()
                 .putContentName("Tweet")
                 .putContentType("Video")
                 .putContentId("1234")
                 .putCustomAttribute("Favorites Count", 20)
-                .putCustomAttribute("Screen Orientation", "Landscape"));
+                .putCustomAttribute("Screen Orientation", "Landscape"));*/
 
     }
 
@@ -49,18 +45,18 @@ public class FabricActivity extends AppCompatActivity {
     public void onKeyMetric(View view) {
         // TODO: Use your own string attributes to track common values over time
         // TODO: Use your own number attributes to track median value over time
-        Answers.getInstance().logCustom(new CustomEvent("Video Played")
+        /*Answers.getInstance().logCustom(new CustomEvent("Video Played")
                 .putCustomAttribute("Category", "Comedy")
-                .putCustomAttribute("Length", 350));
+                .putCustomAttribute("Length", 350));*/
     }
 
 
     private void logUser() {
         // TODO: Use the current user's information
         // You can call any combination of these three methods
-        Crashlytics.setUserIdentifier("12345");
+        /*Crashlytics.setUserIdentifier("12345");
         Crashlytics.setUserEmail("user@fabric.io");
-        Crashlytics.setUserName("Test User");
+        Crashlytics.setUserName("Test User");*/
     }
 
 }
