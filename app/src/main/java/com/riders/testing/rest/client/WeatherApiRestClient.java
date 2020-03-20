@@ -1,24 +1,28 @@
 package com.riders.testing.rest.client;
 
+import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
+import com.riders.testing.application.MyApplication;
 import com.riders.testing.constants.Const;
 import com.riders.testing.model.WeatherKeyModel;
 import com.riders.testing.rest.api.WeatherApiService;
 
-import java.io.FileReader;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
+
 import java.io.IOException;
-import java.lang.reflect.Type;
+import java.io.InputStream;
+import java.util.Objects;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -38,29 +42,67 @@ public class WeatherApiRestClient {
                 .create();
 
         OkHttpClient client;
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(@NotNull String message) {
+                Log.d("OkHttp", message);
+            }
+        });
+
+//        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+        httpClient.addInterceptor(logging);
         httpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
 
                 Request original = chain.request();
                 HttpUrl originalHttpUrl = original.url();
+                HttpUrl url = null;
 
-                Type WEATHER_KEY_TYPE = new TypeToken<WeatherKeyModel>() {
-                }.getType();
-                Gson gson = new Gson();
-                JsonReader reader = new JsonReader(new FileReader("/assets/weather_api.json"));
+                String json = null;
+                WeatherKeyModel model;
+                JSONObject obj = new JSONObject();
+                AssetManager mAssetManager = MyApplication.getInstance().getResources().getAssets();
 
-                HttpUrl url = originalHttpUrl.newBuilder()
-                        .addQueryParameter("appid",
-                                gson.fromJson(reader, WEATHER_KEY_TYPE))
-                        .build();
+                try {
+
+                    InputStream is = mAssetManager
+                            .open("weather_api.json");
+
+                    int size = is.available();
+                    byte[] buffer = new byte[size];
+                    is.read(buffer);
+                    is.close();
+
+                    json = new String(buffer, "UTF-8");
+
+                    obj = new JSONObject(json);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, Objects.requireNonNull(e.getMessage()));
+                }
+
+
+                try {
+                    url = originalHttpUrl.newBuilder()
+                            .addQueryParameter("appid", (String) obj.get("appid"))
+                            .addQueryParameter("units", "metric")
+                            .build();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e(TAG, Objects.requireNonNull(e.getMessage()));
+                }
 
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
                         .url(url);
-
                 Request request = requestBuilder.build();
+
                 return chain.proceed(request);
             }
         });

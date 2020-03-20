@@ -9,9 +9,12 @@
 
     <dimen name="activity_margin">16dp</dimen>
 
+    <dimen name="extra_small_margin">4dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="medium_margin">16dp</dimen>
     <dimen name="big_margin">24dp</dimen>
+
+    <dimen name="card_elevation">8dp</dimen>
 
     <dimen name="activity_section_title">20sp</dimen>
 

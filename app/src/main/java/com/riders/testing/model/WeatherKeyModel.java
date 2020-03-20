@@ -6,4 +6,8 @@ public class WeatherKeyModel {
 
     @Expose
     public String appid;
+
+    public String getAppid() {
+        return appid;
+    }
 }

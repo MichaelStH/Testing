@@ -21,6 +21,7 @@ import com.riders.testing.activities.ServiceActivity;
 import com.riders.testing.activities.SongPlayerActivity;
 import com.riders.testing.activities.SpeechToTextActivity;
 import com.riders.testing.activities.TransitionActivity;
+import com.riders.testing.activities.WeatherActivity;
 import com.riders.testing.activities.WorkingTabsActivity;
 import com.riders.testing.activities.YoutubeActivity;
 import com.riders.testing.model.ActivityItem;
@@ -39,7 +40,7 @@ public class Const {
     public static final String BASE_ENDPOINT_SEARCH = "https://ajax.googleapis.com";
     public static final String BASE_ENDPOINT_GOOGLE_PLACES = "https://maps.googleapis.com/maps/api/place/";
     public static final String BASE_ENDPOINT_WEATHER = "http://api.openweathermap.org";
-    public static final String BASE_ENDPOINT_WEATHER_ICON = "http://openweathermap.org/img/wn/10d@2x.png";
+    public static final String BASE_ENDPOINT_WEATHER_ICON = "http://openweathermap.org/img/wn/";
     public static final String WEATHER_ICON_SUFFIX = "@2x.png";
 
 
@@ -60,7 +61,7 @@ public class Const {
      *
      * @return
      */
-    public static ArrayList<ActivityItem> getActivites() {
+    public static ArrayList<ActivityItem> getActivities() {
         activityItems = new ArrayList<>();
         activityItems.add(new ActivityItem("Highcharts API", "Testing Highcharts API for Android ...",
                 R.drawable.logo_highcharts, HighChartsActivity.class));
@@ -134,6 +135,9 @@ public class Const {
 
         activityItems.add(new ActivityItem("Activity Recognition", "Display user activity...",
                 R.drawable.ic_walking, ActivityRecognitionActivity.class));
+
+        activityItems.add(new ActivityItem("Weather App", "Current weather forecast.. in your city...",
+                R.drawable.openweathermap, WeatherActivity.class));
 
 
         activityItems.add(new ActivityItem("WIP", "Coming soon...",

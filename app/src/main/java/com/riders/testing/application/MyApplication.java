@@ -14,6 +14,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.riders.testing.broadcast.ConnectivityReceiver;
 import com.riders.testing.rest.client.GooglePlacesRestClient;
 import com.riders.testing.rest.client.SearchApiRestClient;
+import com.riders.testing.rest.client.WeatherApiRestClient;
 import com.riders.testing.rest.client.YoutubeRestClient;
 
 
@@ -32,6 +33,7 @@ public class MyApplication extends MultiDexApplication {
     private static YoutubeRestClient youtubeRestClient;
     private static SearchApiRestClient mSearchApiRestClient;
     private static GooglePlacesRestClient mGooglePlacesRestClient;
+    private static WeatherApiRestClient mWeatherApiRestClient;
 
 
     public MyApplication() {
@@ -61,6 +63,7 @@ public class MyApplication extends MultiDexApplication {
         youtubeRestClient = new YoutubeRestClient();
         mSearchApiRestClient = new SearchApiRestClient();
         mGooglePlacesRestClient = new GooglePlacesRestClient();
+        mWeatherApiRestClient = new WeatherApiRestClient();
 
     }
 
@@ -82,8 +85,6 @@ public class MyApplication extends MultiDexApplication {
      * @return
      */
     public static SearchApiRestClient getSearchApiRestClient() {
-
-        Log.i(TAG, "return : getSearchApiRestClient()");
         return mSearchApiRestClient;
     }
 
@@ -102,9 +103,12 @@ public class MyApplication extends MultiDexApplication {
      * @return
      */
     public static GooglePlacesRestClient getGooglePlacesApiRestClient() {
-
-        Log.i(TAG, "return : getGooglePlacesApiRestClient()");
         return mGooglePlacesRestClient;
+    }
+
+
+    public WeatherApiRestClient getWeatherApiRestClient(){
+        return mWeatherApiRestClient;
     }
 
 

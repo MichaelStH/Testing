@@ -170,4 +170,8 @@
     <string name="info_settings">Device info</string>
     <string name="connection_settings">Connection info</string>
 
+    <!-- Weather -->
+    <string name="weather_data_provided_by">Weather data provided by</string>
+    <string name="separator_placeholder">,</string>
+    <string name="degree_placeholder">°C</string>
 </resources>

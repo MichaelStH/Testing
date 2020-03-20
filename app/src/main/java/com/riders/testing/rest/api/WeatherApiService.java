@@ -1,6 +1,7 @@
 package com.riders.testing.rest.api;
 
 import com.riders.testing.model.weather.Weather;
+import com.riders.testing.model.weather.WeatherResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,17 +14,17 @@ public interface WeatherApiService {
     /**
      * Description: You can call by city name or city name, state and country code.
      * API responds with a list of results that match a searching word.
-     *
+     * <p>
      * API call:
      * api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
      * api.openweathermap.org/data/2.5/weather?q={city name},{state}&appid={your api key}
      * api.openweathermap.org/data/2.5/weather?q={city name},{state},{country code}&appid={your api key}
-     *
+     * <p>
      * Parameters: q city name, state and country code divided by comma, use ISO 3166 country codes.
      * You can specify the parameter not only in English. In this case,
      * the API response should be returned in the same language as the language of requested
      * location name if the location is in our predefined list of more than 200,000 locations.
-     *
+     * <p>
      * Examples of API calls:
      * api.openweathermap.org/data/2.5/weather?q=London
      * api.openweathermap.org/data/2.5/weather?q=London,uk
@@ -32,16 +33,16 @@ public interface WeatherApiService {
      * @return
      */
     @GET("/data/2.5/weather?")
-    Call<Weather> getCurrentWeatherByCityName(@Query("q") String cityName);
+    Call<WeatherResponse> getCurrentWeatherByCityName(@Query("q") String cityName);
 
     /**
      * We recommend to call API by city ID to get unambiguous result for your city.
-     *
+     * <p>
      * List of city ID city.list.json.gz can be downloaded here http://bulk.openweathermap.org/sample/
-     *
+     * <p>
      * API call:
      * api.openweathermap.org/data/2.5/weather?id={city id}&appid={your api key}
-     *
+     * <p>
      * Parameters: id City ID
      * Examples of API calls: api.openweathermap.org/data/2.5/weather?id=2172797
      *

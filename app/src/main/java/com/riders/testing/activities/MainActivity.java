@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
         });*/
 
 
-        adapter = new ActivityListAdapter(this, Const.getActivites(), this);
+        adapter = new ActivityListAdapter(this, Const.getActivities(), this);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
