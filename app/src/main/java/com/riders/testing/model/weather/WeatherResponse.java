@@ -26,7 +26,7 @@ public class WeatherResponse {
     Rain rain;
 
     @Expose
-    Cloud cloud;
+    Clouds clouds;
 
     @Expose
     long dt;
@@ -95,12 +95,12 @@ public class WeatherResponse {
         this.rain = rain;
     }
 
-    public Cloud getCloud() {
-        return cloud;
+    public Clouds getClouds() {
+        return clouds;
     }
 
-    public void setCloud(Cloud cloud) {
-        this.cloud = cloud;
+    public void setClouds(Clouds clouds) {
+        this.clouds = clouds;
     }
 
     public long getDt() {

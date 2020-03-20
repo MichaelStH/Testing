@@ -174,4 +174,13 @@
     <string name="weather_data_provided_by">Weather data provided by</string>
     <string name="separator_placeholder">,</string>
     <string name="degree_placeholder">°C</string>
+    <string name="cloudness_placeholder">Cloudness :</string>
+    <string name="humidity_placeholder">Humidity :</string>
+    <string name="pressure_placeholder">Pressure :</string>
+    <string name="pressure_unit_placeholder">inHg</string>
+    <string name="wind_placeholder">Wind :</string>
+    <string name="percent_placeholder">%</string>
+    <string name="kilometer_unit_placeholder">km/h</string>
+    <string name="form_hint_search_city">Looking for a city…</string>
+
 </resources>
