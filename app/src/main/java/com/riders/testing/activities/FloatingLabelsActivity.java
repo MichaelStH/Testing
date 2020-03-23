@@ -18,6 +18,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.riders.testing.R;
 import com.riders.testing.utils.CompatibilityManagerUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by Michaël on 07/03/2017.
@@ -29,9 +32,20 @@ public class FloatingLabelsActivity extends AppCompatActivity {
     public static final String TAG = FloatingLabelsActivity.class.getSimpleName();
 
     //private Toolbar mFloatingLabelsToolbar;
-    private EditText inputName, inputEmail, inputPassword;
-    private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword;
-    private Button btnSignUp;
+    @BindView(R.id.input_name)
+    EditText inputName;
+    @BindView(R.id.input_email)
+    EditText inputEmail;
+    @BindView(R.id.input_password)
+    EditText inputPassword;
+    @BindView(R.id.input_layout_name)
+    TextInputLayout inputLayoutName;
+    @BindView(R.id.input_layout_email)
+    TextInputLayout inputLayoutEmail;
+    @BindView(R.id.input_layout_password)
+    TextInputLayout inputLayoutPassword;
+    @BindView(R.id.floating_labels_btn_signup)
+    Button btnSignUp;
 
 
     @Override
@@ -49,18 +63,11 @@ public class FloatingLabelsActivity extends AppCompatActivity {
 
         //mFloatingLabelsToolbar = (Toolbar) findViewById(R.id.floating_labels_toolbar);
 
+        ButterKnife.bind(this);
+
         //setSupportActionBar(mFloatingLabelsToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(TAG);
-
-
-        inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
-        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
-        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
-        inputName = (EditText) findViewById(R.id.input_name);
-        inputEmail = (EditText) findViewById(R.id.input_email);
-        inputPassword = (EditText) findViewById(R.id.input_password);
-        btnSignUp = (Button) findViewById(R.id.floating_labels_btn_signup);
 
         inputName.addTextChangedListener(new MyTextWatcher(inputName));
         inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));

@@ -13,6 +13,7 @@
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_marginEnd="@dimen/big_margin"
         android:hint="@string/form_hint_search_city"
+        android:inputType="text"
         android:maxEms="40"
         android:maxLines="1"
         android:padding="8dp"

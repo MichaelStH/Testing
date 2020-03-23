@@ -211,27 +211,9 @@ public class WeatherCityAdapter extends ArrayAdapter<CityListModel> {
         notifyDataSetChanged();
     }
 
-    /*public View getCustomView(int position, View convertView,
-                              ViewGroup parent) {
-
-        // Inflating the layout for the custom Spinner
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View layout = inflater.inflate(R.layout.row_city_spinner, null, false);
-
-        TextView textView = (TextView) layout.findViewById(R.id.row_city_name_textView);
-        String city = items.get(position).getName() +
-                context.getResources().getString(R.string.separator_placeholder) +
-                items.get(position).getCountry();
-        textView.setText(city);
-
-        return layout;
-    }*/
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        return getCustomView(position, convertView, parent);
-
         View view = convertView;
 
         if (view == null) {
@@ -249,19 +231,13 @@ public class WeatherCityAdapter extends ArrayAdapter<CityListModel> {
                         context.getResources().getString(R.string.separator_placeholder) +
                         items.get(position).getCountry();
 
-                Log.i(TAG, "getView CityListModel Name: " + szCity);
+//                Log.i(TAG, "getView CityListModel Name: " + szCity);
 
                 tvCityName.setText(szCity);
             }
         }
         return view;
     }
-
-    /*@Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, convertView, parent);
-    }*/
-
 
     @Override
     public Filter getFilter() {

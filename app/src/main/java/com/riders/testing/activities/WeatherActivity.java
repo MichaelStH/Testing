@@ -1,10 +1,15 @@
 package com.riders.testing.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +21,12 @@ import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.riders.testing.R;
 import com.riders.testing.adapters.WeatherCityAdapter;
 import com.riders.testing.application.MyApplication;
@@ -46,7 +57,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WeatherActivity extends AppCompatActivity
-        implements AdapterView.OnItemSelectedListener {
+        implements TextView.OnEditorActionListener, AdapterView.OnItemClickListener {
 
     // Tag & Context
     private static final String TAG = WeatherActivity.class.getSimpleName();
@@ -101,11 +112,17 @@ public class WeatherActivity extends AppCompatActivity
     private AssetManager mAssetManager;
 
 
+    /////////////////////////////////////
+    //
+    // OVERRIDE
+    //
+    /////////////////////////////////////
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
+        // init variables
         instance = MyApplication.getInstance();
         context = this;
         mAssetManager = instance.getAssets();
@@ -114,35 +131,72 @@ public class WeatherActivity extends AppCompatActivity
 
         setListeners();
 
-        try {
-            mCityListObservable = getDataFromJson("city.list.json");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            compositeDisposable.add(
-                    mCityListObservable.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(getCitiesObserver())
-            );
+            Log.d(TAG, "device's sdk version is above 6.0+");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            //Verify permission for Android 6.0+
+            Dexter.withActivity(this)
+                    .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .withListener(new PermissionListener() {
+                        @Override
+                        public void onPermissionGranted(PermissionGrantedResponse response) {
+                            Log.i(TAG, "You require permissions!.");
+
+                            try {
+                                mCityListObservable = getDataFromJson("city.list.json");
+
+                                compositeDisposable.add(
+                                        mCityListObservable.subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .subscribeWith(getCitiesObserver())
+                                );
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        @Override
+                        public void onPermissionDenied(PermissionDeniedResponse response) {
+                            Log.e(TAG, "permission denied");
+                        }
+
+                        @Override
+                        public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+                        }
+                    })
+                    .check();
+        } else {
+            Log.d(TAG, "device's sdk version is : " + Build.VERSION.SDK_INT);
         }
+
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // don't send events once the activity is destroyed
+        compositeDisposable.clear();
+    }
+    /////////////////////////////////////
+    //
+    // OVERRIDE
+    //
+    /////////////////////////////////////
+
+
+    /////////////////////////////////////
+    //
+    // CLASS METHODS
+    //
+    /////////////////////////////////////
     private void setListeners() {
 //        spinner.setOnItemSelectedListener(this);
-        autoCompleteCityName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CityListModel city = (CityListModel) parent.getItemAtPosition(position);
-
-//                fruitDesc.setText(fruit.getDesc());
-
-                String szCity = city.getName() + "," + city.getCountry();
-                Log.d(TAG, "position selected, with value of " + city);
-
-                getCurrentWeather(szCity.toLowerCase());
-            }
-        });
+        autoCompleteCityName.setOnItemClickListener(this);
+        autoCompleteCityName.setOnEditorActionListener(this);
     }
 
     private void setViews(ArrayList<CityListModel> cityList) {
@@ -159,93 +213,6 @@ public class WeatherActivity extends AppCompatActivity
         // Set the minimum number of characters, to show suggestions
         autoCompleteCityName.setThreshold(1);
         autoCompleteCityName.setAdapter(mSpinnerAdapter);
-    }
-
-    public Observable<List<CityListModel>> getDataFromJson(String fileName) {
-
-        return Observable.fromCallable(new Callable<List<CityListModel>>() {
-            @Override
-            public List<CityListModel> call() throws Exception {
-
-                mGson = new Gson();
-                String json;
-
-                InputStream is = mAssetManager.open(fileName);
-
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-
-                json = new String(buffer, "UTF-8");
-
-                mGson.toJson(json);
-
-                return mGson.fromJson(json, new TypeToken<List<CityListModel>>() {
-                }.getType());
-            }
-        });
-    }
-
-    public DisposableObserver<List<CityListModel>> getCitiesObserver() {
-
-        // TODO : test list
-        testList = new ArrayList<>();
-
-        return new DisposableObserver<List<CityListModel>>() {
-            @Override
-            public void onNext(List<CityListModel> cityListModels) {
-
-                for (CityListModel element : cityListModels) {
-
-                    if (element.getCountry().equals("FR"))
-                        testList.add(element);
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "error : " + e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-                setViews(testList);
-            }
-        };
-    }
-
-    public void getCurrentWeather(String city) {
-
-        Call<WeatherResponse> call = MyApplication.getInstance().getWeatherApiRestClient()
-                .getApiService().getCurrentWeatherByCityName(city);
-        call.enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-
-                if (200 != response.code()) {
-                    Log.e(TAG, "error code : " + response.code());
-                } else {
-                    if (response.isSuccessful()) {
-
-                        if (null == response.body()) {
-                            Log.e(TAG,
-                                    "body is null, check code in log ---- retrieve code : " +
-                                            response.code());
-
-                        } else {
-                            WeatherResponse weatherResponse = response.body();
-                            displayData(weatherResponse);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                Log.e(TAG, Objects.requireNonNull(t.getMessage()));
-            }
-        });
     }
 
     public void displayData(WeatherResponse weatherResponse) {
@@ -298,50 +265,159 @@ public class WeatherActivity extends AppCompatActivity
         DateFormat formatter = new SimpleDateFormat("HH:mm");
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         return formatter.format(date);
-
     }
+    /////////////////////////////////////
+    //
+    // CLASS METHODS
+    //
+    /////////////////////////////////////
 
+
+    /////////////////////////////////////
+    //
+    // LISTENERS
+    //
+    /////////////////////////////////////
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        /*switch (parent.getId()) {
-            case R.id.sp_city_list: {
+        View v = getCurrentFocus();
 
-                String city = testList.get(position).getName() +
-                        "," +
-                        testList.get(position).getCountry().toLowerCase();
+        if (v != null) {
+            // Dismiss keyboard
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
 
-                Log.d(TAG, "position selected : " + position + ", with value of " + city);
-
-                getCurrentWeather(city);
-            }
-            break;
-
-            default:
-                break;
-        }*/
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        Log.e(TAG, "nothing selected");
-    }
-
-    /*@Override
-    public void onCitySelected(CityListModel city) {
+        CityListModel city = (CityListModel) parent.getItemAtPosition(position);
 
         String szCity = city.getName() + "," + city.getCountry();
         Log.d(TAG, "position selected, with value of " + city);
 
         getCurrentWeather(szCity.toLowerCase());
-    }*/
+    }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        // don't send events once the activity is destroyed
-        compositeDisposable.clear();
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                || (actionId == EditorInfo.IME_ACTION_DONE)) {
+            Log.e(TAG, "Done pressed");
+        }
+        return false;
     }
+    /////////////////////////////////////
+    //
+    // LISTENERS
+    //
+    /////////////////////////////////////
+
+
+    /////////////////////////////////////
+    //
+    // RETROFIT
+    //
+    /////////////////////////////////////
+    public void getCurrentWeather(String city) {
+
+        Call<WeatherResponse> call = MyApplication.getInstance().getWeatherApiRestClient()
+                .getApiService().getCurrentWeatherByCityName(city);
+        call.enqueue(new Callback<WeatherResponse>() {
+            @Override
+            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+
+                if (200 != response.code()) {
+                    Log.e(TAG, "error code : " + response.code());
+                } else {
+                    if (response.isSuccessful()) {
+
+                        if (null == response.body()) {
+                            Log.e(TAG,
+                                    "body is null, check code in log ---- retrieve code : " +
+                                            response.code());
+
+                        } else {
+                            WeatherResponse weatherResponse = response.body();
+                            displayData(weatherResponse);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+                Log.e(TAG, Objects.requireNonNull(t.getMessage()));
+            }
+        });
+    }
+    /////////////////////////////////////
+    //
+    // RETROFIT
+    //
+    /////////////////////////////////////
+
+
+    /////////////////////////////////////
+    //
+    // RX
+    //
+    /////////////////////////////////////
+    public Observable<List<CityListModel>> getDataFromJson(String fileName) {
+
+        return Observable.fromCallable(new Callable<List<CityListModel>>() {
+            @Override
+            public List<CityListModel> call() throws Exception {
+
+                mGson = new Gson();
+                String json = null;
+
+                InputStream is = mAssetManager.open(fileName);
+
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+
+                json = new String(buffer, "UTF-8");
+
+                mGson.toJson(json);
+
+                return mGson.fromJson(json, new TypeToken<List<CityListModel>>() {
+                }.getType());
+            }
+        });
+    }
+
+    public DisposableObserver<List<CityListModel>> getCitiesObserver() {
+
+        // TODO : test list
+        testList = new ArrayList<>();
+
+        return new DisposableObserver<List<CityListModel>>() {
+            @Override
+            public void onNext(List<CityListModel> cityListModels) {
+
+                for (CityListModel element : cityListModels) {
+
+                    if (element.getCountry().equals("FR"))
+                        testList.add(element);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "error : " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                setViews(testList);
+            }
+        };
+    }
+    /////////////////////////////////////
+    //
+    // RX
+    //
+    /////////////////////////////////////
 
 }
