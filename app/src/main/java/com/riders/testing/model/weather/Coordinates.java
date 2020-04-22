@@ -2,6 +2,13 @@ package com.riders.testing.model.weather;
 
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class Coordinates {
 
     @SerializedName("lon")
@@ -9,20 +16,4 @@ public class Coordinates {
 
     @SerializedName("lat")
     double latitude;
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
 }

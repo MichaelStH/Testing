@@ -19,7 +19,6 @@ import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
 import android.util.Log;
 
-
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -35,6 +34,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import lombok.SneakyThrows;
+
 /**
  * Created by Michaël on 07/03/2017.
  */
@@ -44,7 +51,9 @@ public class DeviceManagerUtils {
 
     private static final String TAG = DeviceManagerUtils.class.getSimpleName();
 
-    /** This class can't be instantiated. */
+    /**
+     * This class can't be instantiated.
+     */
     private DeviceManagerUtils() {
     }
 
@@ -76,6 +85,7 @@ public class DeviceManagerUtils {
 
     /**
      * Return the IP of the device
+     *
      * @return
      */
     @SuppressWarnings("deprecation")
@@ -107,6 +117,7 @@ public class DeviceManagerUtils {
 
     /**
      * http://stackoverflow.com/questions/3394765/how-to-check-available-space-on-android-device-on-mini-sd-card
+     *
      * @return Number of bytes available on External storage
      */
     public static long getAvailableSpaceInBytes() {
@@ -120,6 +131,7 @@ public class DeviceManagerUtils {
 
     /**
      * http://stackoverflow.com/questions/3394765/how-to-check-available-space-on-android-device-on-mini-sd-card
+     *
      * @return Number of kilo bytes available on External storage
      */
     public static long getAvailableSpaceInKB() {
@@ -132,6 +144,7 @@ public class DeviceManagerUtils {
 
     /**
      * http://stackoverflow.com/questions/3394765/how-to-check-available-space-on-android-device-on-mini-sd-card
+     *
      * @return Number of Mega bytes available on External storage
      */
     public static long getAvailableSpaceInMB() {
@@ -145,6 +158,7 @@ public class DeviceManagerUtils {
 
     /**
      * http://stackoverflow.com/questions/3394765/how-to-check-available-space-on-android-device-on-mini-sd-card
+     *
      * @return Number of gega bytes available on External storage
      */
     public static long getAvailableSpaceInGB() {
@@ -170,13 +184,16 @@ public class DeviceManagerUtils {
         StringBuilder builderCity = new StringBuilder();
 
         try {
-            List<Address> address = geoCoder.getFromLocation(latitude, longitude, 1);
+            List<Address> address = geoCoder.getFromLocation(
+                    latitude,
+                    longitude,
+                    1);
             int maxLines = address.get(0).getMaxAddressLineIndex();
             for (int i = 0; i < maxLines; i++) {
                 String addressStr = address.get(0).getAddressLine(i);
                 String cityStr = address.get(0).getLocality();
 
-                Log.e("OHOH", "Adresse : " + addressStr + " | " + "City : " + cityStr); //This will display the final address.
+                Log.e(TAG, "Adresse : " + addressStr + " | " + "City : " + cityStr); //This will display the final address.
 
                 builderAddr.append(addressStr);
                 builderAddr.append(" ");
@@ -188,12 +205,93 @@ public class DeviceManagerUtils {
             String finalAddress = builderAddr.toString(); //This is the complete address.
             String finalCity = builderCity.toString(); //This is the complete address.
 
-            Log.e("OHOH", "Adresse : " + finalAddress + " | " + "City : " + finalCity); //This will display the final address.
+            Log.e("OHOH", "Final -->  Adresse : " + finalAddress + " | " + "City : " + finalCity); //This will display the final address.
 
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
 
         }
+    }
+
+    public static Single<String> getDeviceLocationWithRX(Location location, Context context) {
+
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        //get the address
+        Geocoder geoCoder = new Geocoder(context, Locale.getDefault());
+        StringBuilder builderAddr = new StringBuilder();
+        StringBuilder builderCity = new StringBuilder();
+
+        return new Single<String>() {
+            @Override
+            protected void subscribeActual(SingleObserver<? super String> observer) {
+                getRXAddress(geoCoder, latitude, longitude)
+                        .subscribe(new DisposableSingleObserver<List<Address>>() {
+                            @Override
+                            public void onSuccess(@NonNull List<Address> addresses) {
+                                List<Address> address = addresses;
+
+                                for (Address element : address) {
+                                    Log.e(TAG, "element : " + element.toString());
+                                }
+
+                                int maxLines = address.size();
+
+                                for (int i = 0; i < maxLines; i++) {
+                                    Log.e(TAG, "1 -- : " + address.get(0).getAddressLine(i));
+                                    Log.e(TAG, "2 -- : " + address.get(0).getLocality());
+
+                                    String addressStr = address.get(0).getAddressLine(i);
+                                    String cityStr = address.get(0).getLocality();
+
+                                    //This will display the final address.
+                                    // Log.e(TAG, "Address : " + addressStr + " | " + "City : " + cityStr);
+
+                                    builderAddr.append(addressStr);
+                                    builderAddr.append(" ");
+
+                                    builderCity.append(cityStr);
+                                    builderCity.append(" ");
+                                }
+
+                                String finalAddress = builderAddr.toString(); //This is the complete address.
+                                String finalCity = builderCity.toString(); //This is the complete address.
+
+                                if (!finalCity.isEmpty()) {
+                                    observer.onSuccess(finalCity);
+                                } else {
+                                    Log.e(TAG, "value are empty");
+                                }
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                observer.onError(e);
+                            }
+                        });
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    static Single<List<Address>> getRXAddress(Geocoder geoCoder, double latitude, double longitude) {
+        return new Single<List<Address>>() {
+            @SneakyThrows
+            @Override
+            protected void subscribeActual(@NonNull SingleObserver<? super List<Address>> observer) {
+                List<Address> addressList = geoCoder.getFromLocation(latitude, longitude, 1);
+
+                if (!addressList.isEmpty()) {
+                    observer.onSuccess(addressList);
+                } else {
+                    observer.onError(new Throwable());
+                }
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static String getDeviceLocationToString(Location location, Context context) {
@@ -229,7 +327,7 @@ public class DeviceManagerUtils {
 
             Log.e("OHOH", "Adresse : " + finalAddress + " | " + "City : " + finalCity); //This will display the final address.
 
-        } catch (IOException |NullPointerException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
 
@@ -265,10 +363,11 @@ public class DeviceManagerUtils {
 
     /**
      * Check the Internet connection
+     *
      * @param context
      * @return
      */
-    public static boolean isConnected(Context context){
+    public static boolean isConnected(Context context) {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected())
@@ -277,7 +376,7 @@ public class DeviceManagerUtils {
             return false;
     }
 
-    public static int getRandomImageFromArrayXML( Context context ){
+    public static int getRandomImageFromArrayXML(Context context) {
         final TypedArray imgs = context.getResources().obtainTypedArray(R.array.random_images_array);
         final Random rand = new Random();
         final int rndInt = rand.nextInt(imgs.length());
@@ -285,7 +384,7 @@ public class DeviceManagerUtils {
         return resID;
     }
 
-    public static int getRandomImageFromDrawable(){
+    public static int getRandomImageFromDrawable() {
         final Class drawableClass = R.drawable.class;
         final Field[] fields = drawableClass.getFields();
         int resID = 0;

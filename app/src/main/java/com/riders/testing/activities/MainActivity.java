@@ -643,14 +643,18 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
         Log.d(TAG, "Clicked item : " + item + ", at position : " + position);
 
         if (item.getTitle().equals("WIP"))
-            Utils.showActionInToast(this, "Activity Work In Progress....\nComing soon");
+            Utils.showActionInToast(
+                    this,
+                    "Activity Work In Progress....\nComing soon");
         else
             startActivity(new Intent(this, item.getActivity()));
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.e(TAG, "Location :\n" + "latitude : " + location.getLatitude() + ", longitude : " + location.getLongitude());
+        Log.e(TAG, "Location :\n" +
+                "latitude : " + location.getLatitude() +
+                ", longitude : " + location.getLongitude());
 
         geocoder = new Geocoder(this, Locale.getDefault());
 
@@ -673,8 +677,8 @@ public class MainActivity extends AppCompatActivity implements ActivityListClick
 //            errorMessage = getString(R.string.invalid_lat_long_used);
             Log.e(TAG, "errorMessage" + ". " +
                     "Latitude = " + location.getLatitude() +
-                    ", Longitude = " +
-                    location.getLongitude(), illegalArgumentException);
+                    ", Longitude = " + location.getLongitude(),
+                    illegalArgumentException);
         }
     }
 

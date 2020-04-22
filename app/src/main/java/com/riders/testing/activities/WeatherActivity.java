@@ -3,10 +3,8 @@ package com.riders.testing.activities;
 import android.Manifest;
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,9 +60,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableObserver;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -241,7 +241,7 @@ public class WeatherActivity extends AppCompatActivity
     //
     /////////////////////////////////////
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLocationFetchedEventResult(LocationFetchedEvent event){
+    public void onLocationFetchedEventResult(LocationFetchedEvent event) {
         Log.e(TAG, "onLocationFetchedEvent()");
 
         Location location = event.getLocation();
@@ -249,8 +249,23 @@ public class WeatherActivity extends AppCompatActivity
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
 
-
         Log.e(TAG, latitude + ", " + longitude);
+
+        DeviceManagerUtils
+                .getDeviceLocationWithRX(location, context)
+                .subscribe(new DisposableSingleObserver<String>() {
+                    @Override
+                    public void onSuccess(@NonNull String s) {
+                        Log.e(TAG, "final string city returned : " + s);
+
+                        getCurrentWeather(s);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e(TAG, Objects.requireNonNull(e.getMessage()));
+                    }
+                });
     }
     /////////////////////////////////////
     //
@@ -379,11 +394,6 @@ public class WeatherActivity extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-
-        DeviceManagerUtils.getDeviceLocation(location, this);
-
     }
 
     @Override
