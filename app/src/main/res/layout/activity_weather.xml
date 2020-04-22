@@ -155,7 +155,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1.5"
                     android:orientation="horizontal">
 
                     <!-- Placeholder container -->
@@ -169,26 +169,30 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/cloudness_placeholder"
-                            android:textColor="@color/iron" />
+                            android:textColor="@color/iron"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/humidity_placeholder"
-                            android:textColor="@color/iron" />
+                            android:textColor="@color/iron"
+                            android:textSize="12sp" />
 
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/pressure_placeholder"
-                            android:textColor="@color/iron" />
+                            android:textColor="@color/iron"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/wind_placeholder"
-                            android:textColor="@color/iron" />
+                            android:textColor="@color/iron"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
                     <!-- Placeholder container -->
@@ -206,6 +210,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
+                            android:textSize="12sp"
                             tools:text="75 %" />
                         <!-- Cloudiness -->
 
@@ -215,6 +220,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
+                            android:textSize="12sp"
                             tools:text="74 %" />
                         <!-- Humidity -->
 
@@ -224,6 +230,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
+                            android:textSize="12sp"
                             tools:text="29.9 inHg" />
                         <!-- Humidity -->
 
@@ -233,6 +240,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
+                            android:textSize="12sp"
                             tools:text="16.6 km/H" />
                         <!-- Wind -->
                     </LinearLayout>
@@ -307,4 +315,16 @@
         <!-- Main Linear Layout -->
 
     </androidx.cardview.widget.CardView>
+
+
+    <Button
+        android:id="@+id/btn_current_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cv_main_container"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        tools:text="Use my current location"
+        android:text="@string/use_my_current_location"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

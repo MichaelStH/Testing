@@ -51,7 +51,9 @@ import retrofit2.Response;
 /**
  * Created by cpu on 10/12/2015.
  */
-public class LocationOnMapsActivity extends FragmentActivity implements LocationListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class LocationOnMapsActivity extends FragmentActivity
+        implements LocationListener, OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = LocationOnMapsActivity.class.getSimpleName();
 
@@ -159,7 +161,6 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
         locationTv.setText("Latitude:" + latitude + ", Longitude:" + longitude);
 
         DeviceManagerUtils.getDeviceLocation(location, this);
-
     }
 
     @Override
@@ -276,7 +277,7 @@ public class LocationOnMapsActivity extends FragmentActivity implements Location
 
     public void setGooglePlacesAPI() {
         // creating GPS Class object
-        gps = new GPSTracker(this);
+        gps = new GPSTracker(this, this);
 
         // check if GPS location can get
         if (gps.canGetLocation()) {

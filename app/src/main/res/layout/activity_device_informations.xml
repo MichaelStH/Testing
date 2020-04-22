@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <include layout="@layout/content_device_informations"/>
+    <include layout="@layout/content_device_informations" />
 
 </ScrollView>

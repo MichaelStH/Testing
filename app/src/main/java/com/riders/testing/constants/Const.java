@@ -43,6 +43,12 @@ public class Const {
     public static final String BASE_ENDPOINT_WEATHER_ICON = "http://openweathermap.org/img/wn/";
     public static final String WEATHER_ICON_SUFFIX = "@2x.png";
 
+    public static final String WEATHER_COUNTRY_CODE_FRANCE = "FR";
+    public static final String WEATHER_COUNTRY_CODE_GUADELOUPE = "GP";
+    public static final String WEATHER_COUNTRY_CODE_MARTINIQUE = "MQ";
+    public static final String WEATHER_COUNTRY_CODE_GUYANE = "GF";
+    public static final String WEATHER_COUNTRY_CODE_REUNION = "RE";
+
 
     // Activity Recognition
     public static final String BROADCAST_DETECTED_ACTIVITY = "activity_intent";

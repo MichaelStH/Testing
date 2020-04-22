@@ -3,6 +3,10 @@ package com.riders.testing.activities;
 import android.Manifest;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +15,10 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,9 +36,16 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.riders.testing.R;
 import com.riders.testing.adapters.WeatherCityAdapter;
 import com.riders.testing.application.MyApplication;
+import com.riders.testing.bus.LocationFetchedEvent;
 import com.riders.testing.constants.Const;
 import com.riders.testing.model.weather.CityListModel;
 import com.riders.testing.model.weather.WeatherResponse;
+import com.riders.testing.services.GPSTracker;
+import com.riders.testing.utils.DeviceManagerUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -47,17 +60,19 @@ import java.util.concurrent.Callable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
+import butterknife.OnClick;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.observers.DisposableObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WeatherActivity extends AppCompatActivity
-        implements TextView.OnEditorActionListener, AdapterView.OnItemClickListener {
+        implements TextView.OnEditorActionListener, AdapterView.OnItemClickListener,
+        LocationListener {
 
     // Tag & Context
     private static final String TAG = WeatherActivity.class.getSimpleName();
@@ -87,6 +102,8 @@ public class WeatherActivity extends AppCompatActivity
     TextView tvWeatherExtraPressure;
     @BindView(R.id.tv_weather_extra_wind)
     TextView tvWeatherExtraWind;
+    @BindView(R.id.btn_current_location)
+    Button currentLocationButton;
 
     /* RxJava / RxAndroid */
 
@@ -175,6 +192,18 @@ public class WeatherActivity extends AppCompatActivity
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
 
@@ -184,6 +213,48 @@ public class WeatherActivity extends AppCompatActivity
     /////////////////////////////////////
     //
     // OVERRIDE
+    //
+    /////////////////////////////////////
+
+
+    /////////////////////////////////////
+    //
+    // BUTTERKNIFE
+    //
+    /////////////////////////////////////
+    @OnClick(R.id.btn_current_location)
+    void onCurrentLocationButtonClicked() {
+
+        new GPSTracker(context, this);
+    }
+
+    /////////////////////////////////////
+    //
+    // BUTTERKNIFE
+    //
+    /////////////////////////////////////
+
+
+    /////////////////////////////////////
+    //
+    // BUS
+    //
+    /////////////////////////////////////
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationFetchedEventResult(LocationFetchedEvent event){
+        Log.e(TAG, "onLocationFetchedEvent()");
+
+        Location location = event.getLocation();
+
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+
+        Log.e(TAG, latitude + ", " + longitude);
+    }
+    /////////////////////////////////////
+    //
+    // BUS
     //
     /////////////////////////////////////
 
@@ -305,6 +376,32 @@ public class WeatherActivity extends AppCompatActivity
         }
         return false;
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        DeviceManagerUtils.getDeviceLocation(location, this);
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Toast.makeText(this, "Enabled new provider " + provider, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(this, "Disabled provider " + provider, Toast.LENGTH_SHORT).show();
+
+    }
     /////////////////////////////////////
     //
     // LISTENERS
@@ -398,7 +495,11 @@ public class WeatherActivity extends AppCompatActivity
 
                 for (CityListModel element : cityListModels) {
 
-                    if (element.getCountry().equals("FR"))
+                    if (element.getCountry().equals(Const.WEATHER_COUNTRY_CODE_FRANCE)
+                            || element.getCountry().equals(Const.WEATHER_COUNTRY_CODE_GUADELOUPE)
+                            || element.getCountry().equals(Const.WEATHER_COUNTRY_CODE_MARTINIQUE)
+                            || element.getCountry().equals(Const.WEATHER_COUNTRY_CODE_GUYANE)
+                            || element.getCountry().equals(Const.WEATHER_COUNTRY_CODE_REUNION))
                         testList.add(element);
                 }
             }
@@ -419,5 +520,6 @@ public class WeatherActivity extends AppCompatActivity
     // RX
     //
     /////////////////////////////////////
+
 
 }
